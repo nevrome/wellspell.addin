@@ -1,0 +1,4 @@
+Name: Quick spellcheck with quellspell
+Description: Selects and thereby highlights wrong words
+Binding: quellspell
+Interactive: false
