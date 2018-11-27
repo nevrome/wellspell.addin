@@ -1,0 +1,1 @@
+# quellspell.addin
