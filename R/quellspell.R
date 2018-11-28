@@ -1,5 +1,10 @@
 quellspell <- function(dict = hunspell::dictionary("en_GB")) {
 
+  Sys.setenv(
+    quellspell_language = "en_GB",
+    quellspell_format = "text"
+  )
+
   context <- rstudioapi::getSourceEditorContext()
 
   range.start.row <- as.numeric(unlist(context$selection)["range.start.row"])
@@ -16,7 +21,12 @@ quellspell <- function(dict = hunspell::dictionary("en_GB")) {
   for (p1 in 1:length(row_texts)) {
     all_words <- unlist(stringr::str_split(row_texts[[p1]], " "))
     good_words <- stringr::str_subset(all_words, "^[^0-9]*$")
-    potentially_wrong_words <- unlist(hunspell::hunspell(good_words, dict = dict))
+    # run spellcheck
+    potentially_wrong_words <- unlist(hunspell::hunspell(
+      good_words, 
+      format = Sys.getenv("quellspell_format"),
+      dict = hunspell::dictionary(Sys.getenv("quellspell_language"))
+    ))
     if (length(potentially_wrong_words) == 0) { next }
     positions_raw <- stringr::str_locate_all(
       row_texts[p1],
