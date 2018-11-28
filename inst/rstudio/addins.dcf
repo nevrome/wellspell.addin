@@ -2,3 +2,8 @@ Name: Quick spellcheck with quellspell
 Description: Selects and thereby highlights wrong words
 Binding: quellspell
 Interactive: false
+
+Name: quellspell Spellcheck Configuration
+Description: Sets environment variables for quellspell
+Binding: quellspell_config
+Interactive: true

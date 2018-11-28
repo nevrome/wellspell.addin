@@ -1,9 +1,11 @@
-quellspell <- function(dict = hunspell::dictionary("en_GB")) {
+#' quellspell
+#'
+#' @export
+quellspell <- function() {
 
-  Sys.setenv(
-    quellspell_language = "en_GB",
-    quellspell_format = "text"
-  )
+  if (!quellspell_is_config()) {
+    quellspell_config()
+  }
 
   context <- rstudioapi::getSourceEditorContext()
 
