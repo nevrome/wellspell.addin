@@ -46,12 +46,12 @@ quellspell_config <- function() {
   
   server <- function(input, output, session) {
     
-    observeEvent(input$done, {
+    shiny::observeEvent(input$done, {
       Sys.setenv(
         quellspell_language = input$language_selection,
         quellspell_format = input$format_selection
       )
-      invisible(stopApp())
+      invisible(shiny::stopApp())
     })
     
   }

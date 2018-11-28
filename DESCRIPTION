@@ -9,5 +9,7 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
   hunspell,
+  miniUI,
   rstudioapi,
+  shiny,
   stringr
