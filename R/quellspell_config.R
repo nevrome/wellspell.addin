@@ -27,11 +27,10 @@ quellspell_config <- function() {
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("quellspell Spellcheck Configuration"),
     miniUI::miniContentPanel(
-      shiny::selectInput(
+      shiny::textInput(
         inputId = "language_selection",
         label = "Select spellcheck language",
-        choices = c("en_GB", "en_US"),
-        selected = "en_GB",
+        value = "en_GB",
         width = "100%"
       ),
       shiny::selectInput(
