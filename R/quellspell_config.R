@@ -16,16 +16,13 @@ unconfig <- function() {
   
 }
 
-
 #' quellspell_config
 #'
 #' @export
 config <- function() {
   
-  # Our ui will be a simple gadget page, which
-  # simply displays the time in a 'UI' output.
   ui <- miniUI::miniPage(
-    miniUI::gadgetTitleBar("quellspell Spellcheck Configuration"),
+    miniUI::gadgetTitleBar("Spellcheck"),
     miniUI::miniContentPanel(
       shiny::textInput(
         inputId = "language_selection",
@@ -55,12 +52,10 @@ config <- function() {
     
   }
   
-  # We'll use a pane viwer, and set the minimum height at
-  # 300px to ensure we get enough screen space to display the clock.
   viewer <- shiny::dialogViewer(
     "quellspell_config",
-    width = 400,
-    height = 200
+    width = 300,
+    height = 300
   )
   shiny::runGadget(ui, server, viewer = viewer)  
   
