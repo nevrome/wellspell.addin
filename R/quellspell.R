@@ -1,10 +1,10 @@
 #' quellspell
 #'
 #' @export
-quellspell <- function() {
+spellcheck <- function() {
 
-  if (!quellspell_is_config()) {
-    quellspell_config()
+  if (!is_config()) {
+    config()
   }
 
   context <- rstudioapi::getSourceEditorContext()

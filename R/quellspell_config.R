@@ -1,7 +1,7 @@
 #' quellspell_is_config
 #'
 #' @export
-quellspell_is_config <- function() {
+is_config <- function() {
   
   nchar(Sys.getenv("quellspell_language")) != 0 & nchar(Sys.getenv("quellspell_format")) != 0
   
@@ -10,7 +10,7 @@ quellspell_is_config <- function() {
 #' quellspell_unconfig
 #'
 #' @export
-quellspell_unconfig <- function() {
+unconfig <- function() {
   
   Sys.unsetenv(c("quellspell_language", "quellspell_format"))
   
@@ -20,7 +20,7 @@ quellspell_unconfig <- function() {
 #' quellspell_config
 #'
 #' @export
-quellspell_config <- function() {
+config <- function() {
   
   # Our ui will be a simple gadget page, which
   # simply displays the time in a 'UI' output.
