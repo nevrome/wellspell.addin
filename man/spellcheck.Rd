@@ -9,7 +9,7 @@
 \alias{is_config}
 \alias{rm_config}
 \alias{set_config}
-\title{wellspell.addin: Quick Spellcheck Addin for Rstudio}
+\title{wellspell.addin: Quick Spellcheck Addin for RStudio}
 \usage{
 spellcheck()
 
@@ -22,17 +22,17 @@ rm_config()
 set_config()
 }
 \description{
-wellspell is an Rstudio Addin to quickly highlight words with 
+wellspell is an RStudio Addin to quickly highlight words with 
 spelling errors in text documents. It employs the hunspell spell checking engine
 to do this.
 
-To use it, you can select an arbitrary amount of text in an open text document 
-in Rstudio (e.g. a markdown, latex or html document) an run \code{spellcheck()}.
+To use it, you can select an arbitrary amount of text in an text document 
+in RStudio (e.g. a markdown, latex or html document) and run \code{spellcheck()}.
 As the function is registered as an RStudio Addin, it's possible to run it from
 the Addins dialogue or even with a keyboard shortcut (e.g. Ctrl+Alt+7). 
 
 At the first run in a new environment, \code{spellcheck()} will call 
-\code{set_config()}, which is another RStudio Addin with a minimalistic user interface. 
+\code{set_config()}, which is another Addin with a minimalistic user interface. 
 It allows you to set two environment variables \code{wellspell_language} and
 \code{wellspell_format}. These are used to configure \code{hunspell::hunspell()}.
 \code{wellspell_language} is fed to \code{hunspell(dict = dictionary(lang = ...))}

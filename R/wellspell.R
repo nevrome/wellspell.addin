@@ -1,16 +1,16 @@
 #' @rdname spellcheck
 #' 
-#' @description wellspell is an Rstudio Addin to quickly highlight words with 
+#' @description wellspell is an RStudio Addin to quickly highlight words with 
 #' spelling errors in text documents. It employs the hunspell spell checking engine
 #' to do this.
 #' 
-#' To use it, you can select an arbitrary amount of text in an open text document 
-#' in Rstudio (e.g. a markdown, latex or html document) an run \code{spellcheck()}.
+#' To use it, you can select an arbitrary amount of text in an text document 
+#' in RStudio (e.g. a markdown, latex or html document) and run \code{spellcheck()}.
 #' As the function is registered as an RStudio Addin, it's possible to run it from
 #' the Addins dialogue or even with a keyboard shortcut (e.g. Ctrl+Alt+7). 
 #' 
 #' At the first run in a new environment, \code{spellcheck()} will call 
-#' \code{set_config()}, which is another RStudio Addin with a minimalistic user interface. 
+#' \code{set_config()}, which is another Addin with a minimalistic user interface. 
 #' It allows you to set two environment variables \code{wellspell_language} and
 #' \code{wellspell_format}. These are used to configure \code{hunspell::hunspell()}.
 #' \code{wellspell_language} is fed to \code{hunspell(dict = dictionary(lang = ...))}
@@ -35,7 +35,7 @@ spellcheck <- function() {
     set_config()
   }
 
-  # get selected text from Rstudio API
+  # get selected text from RStudio API
   context <- rstudioapi::getSourceEditorContext()
 
   # extract relevant values from API output
@@ -83,7 +83,7 @@ spellcheck <- function() {
     if (nrow(positions) == 0) { next }
     
     # loop to define the wrong words' positions in a form that 
-    # the Rstudio API can understand
+    # the RStudio API can understand
     # the results are stored in a list of ranges
     for (p2 in 1:nrow(positions)) {
       start <- rstudioapi::document_position(
