@@ -9,7 +9,7 @@
 \alias{is_config}
 \alias{rm_config}
 \alias{set_config}
-\title{wellspell.addin: What the Package Does (One Line, Title Case)}
+\title{wellspell.addin: Quick Spellcheck Addin for Rstudio}
 \usage{
 spellcheck()
 

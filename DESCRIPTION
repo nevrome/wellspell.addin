@@ -1,8 +1,8 @@
 Package: wellspell.addin
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Quick Spellcheck Addin for Rstudio
+Version: 0.1
 Authors@R: person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Rstudio Addin to quickly highlight words with spelling errors in text documents. Uses the hunspell spell checking engine. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
