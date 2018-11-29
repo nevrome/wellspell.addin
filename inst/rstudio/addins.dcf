@@ -3,7 +3,7 @@ Description: Selects and thereby highlights wrong words
 Binding: spellcheck
 Interactive: false
 
-Name: wellspell.addin Spellcheck Configuration
+Name: Configuration of wellspell.addin
 Description: Sets environment variables for wellspell.addin
 Binding: set_config
 Interactive: true

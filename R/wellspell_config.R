@@ -1,5 +1,4 @@
-#' get_config
-#'
+#' @rdname spellcheck
 #' @export
 get_config <- function() {
   c(
@@ -8,22 +7,19 @@ get_config <- function() {
   )
 }
 
-#' is_config
-#'
+#' @rdname spellcheck
 #' @export
 is_config <- function() {
   nchar(Sys.getenv("wellspell_language")) != 0 & nchar(Sys.getenv("wellspell_format")) != 0
 }
 
-#' rm_config
-#'
+#' @rdname spellcheck
 #' @export
 rm_config <- function() {
   Sys.unsetenv(c("wellspell_language", "wellspell_format"))
 }
 
-#' set_config
-#'
+#' @rdname spellcheck
 #' @export
 set_config <- function() {
   

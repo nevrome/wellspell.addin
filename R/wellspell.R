@@ -1,5 +1,10 @@
-#' wellspell
-#'
+#' @rdname spellcheck
+#' 
+#' @description test
+#' 
+"_PACKAGE"
+
+#' @rdname spellcheck
 #' @export
 spellcheck <- function() {
 
