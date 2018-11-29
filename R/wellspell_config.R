@@ -1,22 +1,22 @@
-#' quellspell_is_config
+#' wellspell_is_config
 #'
 #' @export
 is_config <- function() {
   
-  nchar(Sys.getenv("quellspell_language")) != 0 & nchar(Sys.getenv("quellspell_format")) != 0
+  nchar(Sys.getenv("wellspell_language")) != 0 & nchar(Sys.getenv("wellspell_format")) != 0
   
 }
 
-#' quellspell_unconfig
+#' wellspell_unconfig
 #'
 #' @export
 unconfig <- function() {
   
-  Sys.unsetenv(c("quellspell_language", "quellspell_format"))
+  Sys.unsetenv(c("wellspell_language", "wellspell_format"))
   
 }
 
-#' quellspell_config
+#' wellspell_config
 #'
 #' @export
 config <- function() {
@@ -44,8 +44,8 @@ config <- function() {
     
     shiny::observeEvent(input$done, {
       Sys.setenv(
-        quellspell_language = input$language_selection,
-        quellspell_format = input$format_selection
+        wellspell_language = input$language_selection,
+        wellspell_format = input$format_selection
       )
       invisible(shiny::stopApp())
     })
@@ -53,7 +53,7 @@ config <- function() {
   }
   
   viewer <- shiny::dialogViewer(
-    "quellspell_config",
+    "wellspell_config",
     width = 300,
     height = 300
   )

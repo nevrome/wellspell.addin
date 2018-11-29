@@ -1,1 +1,1 @@
-# quellspell.addin
+# wellspell.addin

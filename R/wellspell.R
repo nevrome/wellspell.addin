@@ -1,4 +1,4 @@
-#' quellspell
+#' wellspell
 #'
 #' @export
 spellcheck <- function() {
@@ -26,8 +26,8 @@ spellcheck <- function() {
     # run spellcheck
     potentially_wrong_words <- unlist(hunspell::hunspell(
       good_words, 
-      format = Sys.getenv("quellspell_format"),
-      dict = hunspell::dictionary(Sys.getenv("quellspell_language"))
+      format = Sys.getenv("wellspell_format"),
+      dict = hunspell::dictionary(Sys.getenv("wellspell_language"))
     ))
     if (length(potentially_wrong_words) == 0) { next }
     positions_raw <- stringr::str_locate_all(
