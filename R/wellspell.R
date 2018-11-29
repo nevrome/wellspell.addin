@@ -29,39 +29,62 @@
 #' @export
 spellcheck <- function() {
 
+  # check if environment variables for hunspell configuration are set
+  # if not: call set_config() addin
   if (!is_config()) {
     set_config()
   }
 
+  # get selected text from Rstudio API
   context <- rstudioapi::getSourceEditorContext()
 
+  # extract relevant values from API output
   range.start.row <- as.numeric(unlist(context$selection)["range.start.row"])
   range.start.column <- as.numeric(unlist(context$selection)["range.start.column"])
   range.end.row <- as.numeric(unlist(context$selection)["range.end.row"])
   text <- as.character(unlist(context$selection)["text"])
 
+  # create vectors to work rowwise
   rows <- range.start.row:range.end.row
   start_columns <- c(range.start.column, rep(1, length(rows) - 1))
   row_texts <- unlist(strsplit(text, "\n"))
 
+  # main spellchecking loop: rowwise
   range <- list()
   i <- 1
   for (p1 in 1:length(row_texts)) {
+    
+    # get all words of current row
     all_words <- unlist(stringr::str_split(row_texts[[p1]], " "))
+    
+    # remove words with numbers
     good_words <- stringr::str_subset(all_words, "^[^0-9]*$")
+    
     # run spellcheck
     potentially_wrong_words <- unlist(hunspell::hunspell(
       good_words, 
       format = Sys.getenv("wellspell_format"),
       dict = hunspell::dictionary(Sys.getenv("wellspell_language"))
     ))
+    
+    # stop with run for current row if no words are wrong
     if (length(potentially_wrong_words) == 0) { next }
+    
+    # find position of wrong words
     positions_raw <- stringr::str_locate_all(
       row_texts[p1],
       paste0("([^\\p{L}])(", potentially_wrong_words, ")([^\\p{L}])")
     )
     positions <- do.call(rbind, positions_raw)
+    
+    # stop if the wrong words can not be found. That can happen
+    # if half words where selected and identified as errors
+    # by hunspell
     if (nrow(positions) == 0) { next }
+    
+    # loop to define the wrong words' positions in a form that 
+    # the Rstudio API can understand
+    # the results are stored in a list of ranges
     for (p2 in 1:nrow(positions)) {
       start <- rstudioapi::document_position(
         row = rows[p1],
@@ -76,6 +99,7 @@ spellcheck <- function() {
     }
   }
 
+  # use range list to select and thereby highlight wrong words 
   rstudioapi::setSelectionRanges(
     range,
     id = context$id
