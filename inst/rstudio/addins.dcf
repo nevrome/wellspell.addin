@@ -5,5 +5,5 @@ Interactive: false
 
 Name: wellspell.addin Spellcheck Configuration
 Description: Sets environment variables for wellspell.addin
-Binding: config
+Binding: set_config
 Interactive: true

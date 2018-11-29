@@ -1,25 +1,31 @@
-#' wellspell_is_config
+#' get_config
+#'
+#' @export
+get_config <- function() {
+  c(
+    wellspell_language = Sys.getenv("wellspell_language"),
+    wellspell_format = Sys.getenv("wellspell_format")
+  )
+}
+
+#' is_config
 #'
 #' @export
 is_config <- function() {
-  
   nchar(Sys.getenv("wellspell_language")) != 0 & nchar(Sys.getenv("wellspell_format")) != 0
-  
 }
 
-#' wellspell_unconfig
+#' rm_config
 #'
 #' @export
-unconfig <- function() {
-  
+rm_config <- function() {
   Sys.unsetenv(c("wellspell_language", "wellspell_format"))
-  
 }
 
-#' wellspell_config
+#' set_config
 #'
 #' @export
-config <- function() {
+set_config <- function() {
   
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Spellcheck"),

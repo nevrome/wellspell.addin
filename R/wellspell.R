@@ -4,7 +4,7 @@
 spellcheck <- function() {
 
   if (!is_config()) {
-    config()
+    set_config()
   }
 
   context <- rstudioapi::getSourceEditorContext()
