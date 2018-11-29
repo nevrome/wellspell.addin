@@ -1,6 +1,27 @@
 #' @rdname spellcheck
 #' 
-#' @description test
+#' @description wellspell is an Rstudio Addin to quickly highlight words with 
+#' spelling errors in text documents. It uses the hunspell spell checking engine
+#' to do this.
+#' 
+#' To use it, you can select an arbitrary amount of text in an open text document 
+#' in Rstudio (e.g. a markdown, latex or html document) an run \code{spellcheck()}.
+#' As the function is registered as an RStudio Addin, it's possible to run it from
+#' the Addins dialogue or even with a keyboard shortcut. 
+#' 
+#' At the first run in a new environemt, \code{spellcheck()} will call 
+#' \code{set_config}, which is an RStudio Addin with a minimalistic user interface. 
+#' It allows you to set two environment variables \code{wellspell_language} and
+#' \code{wellspell_format}. These are used to configure \code{hunspell::hunspell()}.
+#' \code{wellspell_language} is fed to \code{hunspell(dict = dictionary(lang = ...))}
+#' and \code{wellspell_format} to \code{hunspell(format = ...)}. 
+#' 
+#' If the environment variables are set, \code{spellcheck()} selects and thereby 
+#' highlights all words identified as wrong by hunspell.
+#' 
+#' The additional functions \code{get_config()}, \code{is_config()}, and \code{rm_config}
+#' are for dealing with the environment variables and usually don't have to be called 
+#' directly. 
 #' 
 "_PACKAGE"
 
