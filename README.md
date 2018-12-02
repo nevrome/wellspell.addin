@@ -6,7 +6,7 @@ wellspell.addin is an RStudio Addin to quickly highlight words with spelling err
 devtools::install_github("nevrome/wellspell.addin")
 ```
 
-![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/wordcount_demo.gif)
+![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/Peek 2018-12-02 23-38.gif)
 
 To use it, you can select an arbitrary amount of text in a text document in RStudio (e.g. a markdown, latex or html document) and run `spellcheck()`. As the function is registered as an RStudio Addin, it's possible to run it from the Addins dialogue or even with a [keyboard shortcut](https://rstudio.github.io/rstudioaddins/#keyboard-shorcuts) (e.g. <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>7</kbd>). 
 
