@@ -23,13 +23,17 @@ rm_config <- function() {
 #' @export
 set_config <- function() {
   
+  hunspell_dicts <- get_available_hunspell_dictionaries()
+  default_dict <- ifelse("en_GB" %in% hunspell_dicts, "en_GB", hunspell_dicts[1])
+  
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("Spellcheck"),
     miniUI::miniContentPanel(
-      shiny::textInput(
+      shiny::selectInput(
         inputId = "language_selection",
         label = "Select spellcheck language",
-        value = "en_GB",
+        choices = hunspell_dicts,
+        selected = default_dict,
         width = "100%"
       ),
       shiny::selectInput(
@@ -57,7 +61,7 @@ set_config <- function() {
   viewer <- shiny::dialogViewer(
     "wellspell_config",
     width = 300,
-    height = 300
+    height = 350
   )
   shiny::runGadget(ui, server, viewer = viewer)  
   
