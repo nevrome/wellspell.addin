@@ -105,5 +105,10 @@ spellcheck <- function() {
     id = context$id
   )
 
+  # message for user if no errors were found
+  if (length(range) == 0) {
+    message("No spelling errors found.")
+  }
+  
 }
 
