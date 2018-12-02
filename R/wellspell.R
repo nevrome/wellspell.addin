@@ -72,7 +72,8 @@ spellcheck <- function() {
     
     # find position of wrong words
     positions_raw <- stringr::str_locate_all(
-      row_texts[p1],
+      paste0(" ", row_texts[p1], " "),
+      # ignore words that are part of other words
       paste0("([^\\p{L}])(", potentially_wrong_words, ")([^\\p{L}])")
     )
     positions <- do.call(rbind, positions_raw)
@@ -88,11 +89,11 @@ spellcheck <- function() {
     for (p2 in 1:nrow(positions)) {
       start <- rstudioapi::document_position(
         row = rows[p1],
-        column = start_columns[p1] + positions[p2, 1]
+        column = (start_columns[p1] + positions[p2, 1]) - 1
       )
       end <- rstudioapi::document_position(
         row = rows[p1],
-        column = (start_columns[p1] + positions[p2, 2]) - 1
+        column = (start_columns[p1] + positions[p2, 2]) - 2
       )
       range[[i]] <- rstudioapi::document_range(start, end)
       i <- i + 1
