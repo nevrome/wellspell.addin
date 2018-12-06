@@ -28,8 +28,8 @@ set_config <- function() {
   dictionary_path <- switch(
     Sys.info()["sysname"],
     Linux = normalizePath("~/.rstudio-desktop/dictionaries/languages-system", mustWork = FALSE),
-    Windows = normalizePath(paste0(
-      Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop/dictionaries/languages-system", collapse = "/"
+    Windows = normalizePath(paste(
+      Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop/dictionaries/languages-system", sep = "/"
     ), mustWork = FALSE)
   )
   Sys.setenv(
