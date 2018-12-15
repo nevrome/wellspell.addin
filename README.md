@@ -3,6 +3,7 @@
 wellspell.addin is an RStudio Addin to quickly highlight words with spelling errors in text documents. It employs the [hunspell spell checking engine](http://hunspell.github.io) via the [hunspell package](https://github.com/ropensci/hunspell) to do this. You can install wellspell.addin with 
 
 ```
+devtools::install_github("ropensci/hunspell")
 devtools::install_github("nevrome/wellspell.addin")
 ```
 

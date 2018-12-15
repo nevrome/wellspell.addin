@@ -23,20 +23,7 @@ rm_config <- function() {
 #' @export
 set_config <- function() {
 
-  # this can be removed when the hunspell PR is accepted: https://github.com/ropensci/hunspell/pull/36
-  # paths defined here: https://support.rstudio.com/hc/en-us/articles/200551916-Spelling-Dictionaries
-  dictionary_path <- switch(
-    Sys.info()["sysname"],
-    Linux = normalizePath("~/.rstudio-desktop/dictionaries/languages-system", mustWork = FALSE),
-    Windows = normalizePath(paste(
-      Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop/dictionaries/languages-system", sep = "/"
-    ), mustWork = FALSE)
-  )
-  Sys.setenv(
-    DICPATH = dictionary_path
-  )
-  
-  hunspell_dicts <- get_available_hunspell_dictionaries()
+  hunspell_dicts <- hunspell::list_dictionaries()
   default_dict <- ifelse("en_GB" %in% hunspell_dicts, "en_GB", hunspell_dicts[1])
   
   ui <- miniUI::miniPage(
