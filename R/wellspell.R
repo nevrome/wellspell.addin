@@ -70,20 +70,28 @@ find_bad_spelling <- function(x) {
 
 find_bad_grammer <- function(x) {
   
-  # run grammer check
-  gramr_output <- gramr::check_grammar(x)
+  # set ignore options based on global variable
+  options <- unlist(strsplit(Sys.getenv("wellspell_grammer_ignore"), "/"))
+  option_list <- lapply(options, function(x) { FALSE })
+  names(option_list) <- options
   
-  for (y in gramr_output) {
-    message(y)
-  }
-
+  # run grammer check
+  gramr_output <- gramr::check_grammar(
+    x,
+    options = option_list
+  )
+  
   if (is.null(gramr_output)) {
     return(c())
   } else {
+    # print messages
+    for (y in gramr_output) {
+      message(y)
+    }
     # get bad words
     return(unique(sapply(strsplit(gramr_output, "\""), function(x) { x[2] })))
   }
-    
+
 }
 
 check <- function(find_bad_function) {
@@ -161,8 +169,10 @@ check <- function(find_bad_function) {
 
   # message for user if no errors were found
   if (length(range) == 0) {
-    message("No spelling errors found.")
+    message("No errors found.")
   }
+  
+  message("")
   
 }
 

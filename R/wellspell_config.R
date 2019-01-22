@@ -3,7 +3,8 @@
 get_config <- function() {
   c(
     wellspell_language = Sys.getenv("wellspell_language"),
-    wellspell_format = Sys.getenv("wellspell_format")
+    wellspell_format = Sys.getenv("wellspell_format"),
+    wellspell_grammer_ignore = Sys.getenv("wellspell_grammer_ignore")
   )
 }
 
@@ -16,7 +17,7 @@ is_config <- function() {
 #' @rdname spellcheck
 #' @export
 rm_config <- function() {
-  Sys.unsetenv(c("wellspell_language", "wellspell_format"))
+  Sys.unsetenv(c("wellspell_language", "wellspell_format", "wellspell_grammer_ignore"))
 }
 
 #' @rdname spellcheck
@@ -27,7 +28,7 @@ set_config <- function() {
   default_dict <- ifelse("en_GB" %in% hunspell_dicts, "en_GB", hunspell_dicts[1])
   
   ui <- miniUI::miniPage(
-    miniUI::gadgetTitleBar("Spellcheck"),
+    miniUI::gadgetTitleBar("wellspell.addin"),
     miniUI::miniContentPanel(
       shiny::selectInput(
         inputId = "language_selection",
@@ -42,6 +43,26 @@ set_config <- function() {
         choices = c("text", "man", "latex", "html", "xml"),
         selected = "text",
         width = "100%"
+      ),
+      shiny::hr(),
+      shiny::checkboxGroupInput(
+        inputId = "grammer_ignore",
+        label = "Should any grammer errors be ignored?",
+        choiceNames = list(
+          "Passive Voice",
+          "Duplicate words (the the)",
+          "'So' at start of sentence",
+          "'There is/are; at start of sentence",
+          "Avoid weasel words",
+          "Wordiness",
+          "Problematic Adverbs",
+          "Cliches",
+          "Avoid 'Being' words"
+        ),
+        choiceValues = list(
+          "passive", "illusion", "so", "thereIs", "weasel",
+          "adverb", "toWordy", "cliches", "eprime"
+        )
       )
     )
   )
@@ -51,7 +72,8 @@ set_config <- function() {
     shiny::observeEvent(input$done, {
       Sys.setenv(
         wellspell_language = input$language_selection,
-        wellspell_format = input$format_selection
+        wellspell_format = input$format_selection,
+        wellspell_grammer_ignore = paste(input$grammer_ignore, collapse = "/")
       )
       invisible(shiny::stopApp())
     })
@@ -61,7 +83,7 @@ set_config <- function() {
   viewer <- shiny::dialogViewer(
     "wellspell_config",
     width = 300,
-    height = 350
+    height = 500
   )
   shiny::runGadget(ui, server, viewer = viewer)  
   
