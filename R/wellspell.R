@@ -41,9 +41,54 @@
 
 #' @rdname spellcheck
 #' @export
-spellcheck <- function() {
+spellcheck <- function() { return(check(find_bad_spelling)) }
 
-  # check if environment variables for hunspell configuration are set
+#' @rdname spellcheck
+#' @export
+gramcheck <- function() { return(check(find_bad_grammer)) } 
+
+#### algorithm functions ####
+
+find_bad_spelling <- function(x) {
+  
+  # get all words of current row
+  all_words <- unlist(stringr::str_split(x, " "))
+  
+  # remove words with numbers
+  good_words <- stringr::str_subset(all_words, "^[^0-9]*$")
+  
+  # run spellcheck and get bad words
+  hunspell_output <- unlist(hunspell::hunspell(
+    good_words, 
+    format = Sys.getenv("wellspell_format"),
+    dict = hunspell::dictionary(Sys.getenv("wellspell_language"))
+  ))
+  
+  return(hunspell_output)
+  
+}
+
+find_bad_grammer <- function(x) {
+  
+  # run grammer check
+  gramr_output <- gramr::check_grammar(x)
+  
+  for (y in gramr_output) {
+    message(y)
+  }
+
+  if (is.null(gramr_output)) {
+    return(c())
+  } else {
+    # get bad words
+    return(unique(sapply(strsplit(gramr_output, "\""), function(x) { x[2] })))
+  }
+    
+}
+
+check <- function(find_bad_function) {
+
+  # check if environment variables for configuration are set
   # if not: call set_config() addin
   if (!is_config()) {
     set_config()
@@ -52,6 +97,11 @@ spellcheck <- function() {
   # get selected text from RStudio API
   context <- rstudioapi::getSourceEditorContext()
 
+  # stop with there is no text for current row
+  if (as.character(unlist(context$selection)["text"]) == "") { 
+    stop("No text selected.")  
+  }
+  
   # extract relevant values from API output
   range.start.row <- as.numeric(unlist(context$selection)["range.start.row"])
   range.start.column <- as.numeric(unlist(context$selection)["range.start.column"])
@@ -68,18 +118,7 @@ spellcheck <- function() {
   i <- 1
   for (p1 in 1:length(row_texts)) {
     
-    # get all words of current row
-    all_words <- unlist(stringr::str_split(row_texts[[p1]], " "))
-    
-    # remove words with numbers
-    good_words <- stringr::str_subset(all_words, "^[^0-9]*$")
-    
-    # run spellcheck
-    potentially_wrong_words <- unlist(hunspell::hunspell(
-      good_words, 
-      format = Sys.getenv("wellspell_format"),
-      dict = hunspell::dictionary(Sys.getenv("wellspell_language"))
-    ))
+    potentially_wrong_words <- find_bad_function(row_texts[[p1]])
     
     # stop with run for current row if no words are wrong
     if (length(potentially_wrong_words) == 0) { next }
