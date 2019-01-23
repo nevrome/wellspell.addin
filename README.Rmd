@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 ```{r, echo=FALSE, results='asis'}
 zz <- textConnection("rd", "w")
-tools::Rd2txt("man/spellcheck.Rd", zz)
+tools::Rd2txt("man/wellspell.Rd", zz)
 close(zz)
 
 purrr::walk(
