@@ -29,39 +29,49 @@ set_config <- function() {
   
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("wellspell.addin"),
-    miniUI::miniContentPanel(
-      shiny::selectInput(
-        inputId = "language_selection",
-        label = "Select spellcheck language",
-        choices = hunspell_dicts,
-        selected = default_dict,
-        width = "100%"
+    miniUI::miniTabstripPanel(
+      miniUI::miniTabPanel(
+        "Spellcheck", icon = shiny::icon("language"),
+        miniUI::miniContentPanel(
+          shiny::selectInput(
+            inputId = "language_selection",
+            label = "Select spellcheck language",
+            choices = hunspell_dicts,
+            selected = default_dict,
+            width = "100%"
+          ),
+          shiny::selectInput(
+            inputId = "format_selection",
+            label = "Select document format",
+            choices = c("text", "man", "latex", "html", "xml"),
+            selected = "text",
+            width = "100%"
+          )
+        )
       ),
-      shiny::selectInput(
-        inputId = "format_selection",
-        label = "Select document format",
-        choices = c("text", "man", "latex", "html", "xml"),
-        selected = "text",
-        width = "100%"
-      ),
-      shiny::hr(),
-      shiny::checkboxGroupInput(
-        inputId = "grammer_ignore",
-        label = "Should any grammer errors be ignored?",
-        choiceNames = list(
-          "Passive Voice",
-          "Duplicate words (the the)",
-          "'So' at start of sentence",
-          "'There is/are; at start of sentence",
-          "Avoid weasel words",
-          "Wordiness",
-          "Problematic Adverbs",
-          "Cliches",
-          "Avoid 'Being' words"
-        ),
-        choiceValues = list(
-          "passive", "illusion", "so", "thereIs", "weasel",
-          "adverb", "toWordy", "cliches", "eprime"
+      miniUI::miniTabPanel(
+        "Grammer check", icon = shiny::icon("ruler"),
+        miniUI::miniContentPanel(
+          shiny::HTML("<i>Only works with english text.</i>"),
+          shiny::checkboxGroupInput(
+            inputId = "grammer_ignore",
+            label = "Should any grammer errors be ignored?",
+            choiceNames = list(
+              "Passive Voice",
+              "Duplicate words (the the)",
+              "'So' at start of sentence",
+              "'There is/are; at start of sentence",
+              "Avoid weasel words",
+              "Wordiness",
+              "Problematic Adverbs",
+              "Cliches",
+              "Avoid 'Being' words"
+            ),
+            choiceValues = list(
+              "passive", "illusion", "so", "thereIs", "weasel",
+              "adverb", "toWordy", "cliches", "eprime"
+            )
+          )
         )
       )
     )
@@ -83,7 +93,7 @@ set_config <- function() {
   viewer <- shiny::dialogViewer(
     "wellspell_config",
     width = 300,
-    height = 500
+    height = 430
   )
   shiny::runGadget(ui, server, viewer = viewer)  
   
