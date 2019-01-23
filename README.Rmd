@@ -18,13 +18,15 @@ knitr::opts_chunk$set(
 
 ![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/dracula.gif)
 
-## Install
+### Quickstart
 
-```{r, eval=FALSE}
-devtools::install_github("nevrome/wellspell.addin")
-```
+1. Install the package `devtools::install_github("nevrome/wellspell.addin")`
 
-## Manual
+2. Select text in an open document in RStudio
+
+3. Run the quick spellcheck or quick grammer check addin
+
+### Manual
 
 ```{r, echo=FALSE, results='asis'}
 zz <- textConnection("rd", "w")
@@ -38,6 +40,5 @@ purrr::walk(
     cat("  \n")
   }
 )
-
 ```
 
