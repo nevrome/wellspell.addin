@@ -4,7 +4,7 @@ get_config <- function() {
   c(
     wellspell_language = Sys.getenv("wellspell_language"),
     wellspell_format = Sys.getenv("wellspell_format"),
-    wellspell_grammer_ignore = Sys.getenv("wellspell_grammer_ignore")
+    wellspell_grammar_ignore = Sys.getenv("wellspell_grammar_ignore")
   )
 }
 
@@ -17,7 +17,7 @@ is_config <- function() {
 #' @rdname spellcheck
 #' @export
 rm_config <- function() {
-  Sys.unsetenv(c("wellspell_language", "wellspell_format", "wellspell_grammer_ignore"))
+  Sys.unsetenv(c("wellspell_language", "wellspell_format", "wellspell_grammar_ignore"))
 }
 
 #' @rdname spellcheck
@@ -50,12 +50,12 @@ set_config <- function() {
         )
       ),
       miniUI::miniTabPanel(
-        "Grammer check", icon = shiny::icon("ruler"),
+        "grammar check", icon = shiny::icon("ruler"),
         miniUI::miniContentPanel(
           shiny::HTML("<i>Only works with english text.</i>"),
           shiny::checkboxGroupInput(
-            inputId = "grammer_ignore",
-            label = "Should any grammer errors be ignored?",
+            inputId = "grammar_ignore",
+            label = "Should any grammar errors be ignored?",
             choiceNames = list(
               "Passive Voice",
               "Duplicate words (the the)",
@@ -83,7 +83,7 @@ set_config <- function() {
       Sys.setenv(
         wellspell_language = input$language_selection,
         wellspell_format = input$format_selection,
-        wellspell_grammer_ignore = paste(input$grammer_ignore, collapse = "/")
+        wellspell_grammar_ignore = paste(input$grammar_ignore, collapse = "/")
       )
       invisible(shiny::stopApp())
     })

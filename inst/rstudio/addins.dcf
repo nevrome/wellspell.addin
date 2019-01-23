@@ -3,8 +3,8 @@ Description: Selects and thereby highlights wrong words
 Binding: spellcheck
 Interactive: false
 
-Name: Quick grammer check with wellspell.addin
-Description: Selects and thereby highlights grammer errors
+Name: Quick grammar check with wellspell.addin
+Description: Selects and thereby highlights grammar errors
 Binding: gramcheck
 Interactive: false
 

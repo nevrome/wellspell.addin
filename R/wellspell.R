@@ -2,12 +2,12 @@
 #' @title wellspell.addin
 #' 
 #' @description wellspell is an RStudio Addin to quickly highlight words with
-#' spelling or grammer errors in text documents. It employs the
+#' spelling or grammar errors in text documents. It employs the
 #' \href{http://hunspell.github.io}{hunspell spell checking engine}
 #' via the \href{https://github.com/ropensci/hunspell}{hunspell package}
 #' and the \href{https://github.com/btford/write-good}{write-good} linter
 #' via the \href{https://github.com/ropenscilabs/gramr}{gramr package}
-#' to do so. Spellchecking works for many languages, grammer checking is limited
+#' to do so. Spellchecking works for many languages, grammar checking is limited
 #' to english text.
 #' 
 #' To use it, you can select an arbitrary amount of text in a text document
@@ -19,11 +19,11 @@
 #' At the first run in a new environment, \code{spellcheck()} and \code{gramcheck()}
 #' will call \code{set_config()}, which is another Addin with a minimalistic user interface.
 #' It allows you to set three environment variables \code{wellspell_language},
-#' \code{wellspell_format} and \code{wellspell_grammer_ignore}.
+#' \code{wellspell_format} and \code{wellspell_grammar_ignore}.
 #' These are used to configure \code{hunspell::hunspell()} and \code{gramr::check_grammar()}.
 #' \code{wellspell_language} is fed to \code{hunspell(dict = dictionary(lang = ...))},
 #' \code{wellspell_format} to \code{hunspell(format = ...)} and
-#' \code{wellspell_grammer_ignore} to \code{check_grammar(options = ...)}
+#' \code{wellspell_grammar_ignore} to \code{check_grammar(options = ...)}
 #' 
 #' If the environment variables are set, \code{spellcheck()} and \code{gramcheck()}
 #' select and thereby highlight all words/expressions identified as wrong.
@@ -52,7 +52,7 @@ spellcheck <- function() { return(check(find_bad_spelling)) }
 
 #' @rdname spellcheck
 #' @export
-gramcheck <- function() { return(check(find_bad_grammer)) } 
+gramcheck <- function() { return(check(find_bad_grammar)) } 
 
 #### algorithm functions ####
 
@@ -75,14 +75,14 @@ find_bad_spelling <- function(x) {
   
 }
 
-find_bad_grammer <- function(x) {
+find_bad_grammar <- function(x) {
   
   # set ignore options based on global variable
-  options <- unlist(strsplit(Sys.getenv("wellspell_grammer_ignore"), "/"))
+  options <- unlist(strsplit(Sys.getenv("wellspell_grammar_ignore"), "/"))
   option_list <- lapply(options, function(x) { FALSE })
   names(option_list) <- options
   
-  # run grammer check
+  # run grammar check
   gramr_output <- gramr::check_grammar(
     x,
     options = option_list

@@ -26,12 +26,12 @@ set_config()
 }
 \description{
 wellspell is an RStudio Addin to quickly highlight words with
-spelling or grammer errors in text documents. It employs the
+spelling or grammar errors in text documents. It employs the
 \href{http://hunspell.github.io}{hunspell spell checking engine}
 via the \href{https://github.com/ropensci/hunspell}{hunspell package}
 and the \href{https://github.com/btford/write-good}{write-good} linter
 via the \href{https://github.com/ropenscilabs/gramr}{gramr package}
-to do so. Spellchecking works for many languages, grammer checking is limited
+to do so. Spellchecking works for many languages, grammar checking is limited
 to english text.
 
 To use it, you can select an arbitrary amount of text in a text document
@@ -43,11 +43,11 @@ the Addins dialogue or even with a keyboard shortcut (e.g. Ctrl+Alt+7 and Ctrl+A
 At the first run in a new environment, \code{spellcheck()} and \code{gramcheck()}
 will call \code{set_config()}, which is another Addin with a minimalistic user interface.
 It allows you to set three environment variables \code{wellspell_language},
-\code{wellspell_format} and \code{wellspell_grammer_ignore}.
+\code{wellspell_format} and \code{wellspell_grammar_ignore}.
 These are used to configure \code{hunspell::hunspell()} and \code{gramr::check_grammar()}.
 \code{wellspell_language} is fed to \code{hunspell(dict = dictionary(lang = ...))},
 \code{wellspell_format} to \code{hunspell(format = ...)} and
-\code{wellspell_grammer_ignore} to \code{check_grammar(options = ...)}
+\code{wellspell_grammar_ignore} to \code{check_grammar(options = ...)}
 
 If the environment variables are set, \code{spellcheck()} and \code{gramcheck()}
 select and thereby highlight all words/expressions identified as wrong.

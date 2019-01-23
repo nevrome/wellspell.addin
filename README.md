@@ -11,15 +11,15 @@ wellspell.addin
 
 2.  Select text in an open document in RStudio
 
-3.  Run the quick spellcheck or quick grammer check addin
+3.  Run the quick spellcheck or quick grammar check addin
 
 ### Manual
 
      wellspell is an RStudio Addin to quickly highlight words with  
-     spelling or grammer errors in text documents. It employs the  
+     spelling or grammar errors in text documents. It employs the  
      hunspell spell checking engine via the hunspell package and the  
      write-good linter via the gramr package to do so. Spellchecking  
-     works for many languages, grammer checking is limited to english  
+     works for many languages, grammar checking is limited to english  
      text.  
 
      To use it, you can select an arbitrary amount of text in a text  
@@ -33,11 +33,11 @@ wellspell.addin
      'gramcheck()' will call 'set_config()', which is another Addin  
      with a minimalistic user interface. It allows you to set three  
      environment variables 'wellspell_language', 'wellspell_format' and  
-     'wellspell_grammer_ignore'. These are used to configure  
+     'wellspell_grammar_ignore'. These are used to configure  
      'hunspell::hunspell()' and 'gramr::check_grammar()'.  
      'wellspell_language' is fed to 'hunspell(dict = dictionary(lang =  
      ...))', 'wellspell_format' to 'hunspell(format = ...)' and  
-     'wellspell_grammer_ignore' to 'check_grammar(options = ...)'  
+     'wellspell_grammar_ignore' to 'check_grammar(options = ...)'  
 
      If the environment variables are set, 'spellcheck()' and  
      'gramcheck()' select and thereby highlight all words/expressions  

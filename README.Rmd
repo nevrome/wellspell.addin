@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 2. Select text in an open document in RStudio
 
-3. Run the quick spellcheck or quick grammer check addin
+3. Run the quick spellcheck or quick grammar check addin
 
 ### Manual
 
