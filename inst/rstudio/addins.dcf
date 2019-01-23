@@ -3,6 +3,11 @@ Description: Selects and thereby highlights wrong words
 Binding: spellcheck
 Interactive: false
 
+Name: Quick grammar check with wellspell.addin
+Description: Selects and thereby highlights grammar errors
+Binding: gramcheck
+Interactive: false
+
 Name: Configuration of wellspell.addin
 Description: Sets environment variables for wellspell.addin
 Binding: set_config
