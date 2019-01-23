@@ -1,0 +1,43 @@
+---
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# wellspell.addin
+
+![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/dracula.gif)
+
+## Install
+
+```{r, eval=FALSE}
+devtools::install_github("nevrome/wellspell.addin")
+```
+
+## Manual
+
+```{r, echo=FALSE, results='asis'}
+zz <- textConnection("rd", "w")
+tools::Rd2txt("man/spellcheck.Rd", zz)
+close(zz)
+
+purrr::walk(
+  rd[4:(grep("_\bU_\bs_\ba_\bg_\be:", rd) - 1)],
+  function(x) {
+    cat(x)
+    cat("  \n")
+  }
+)
+
+```
+
