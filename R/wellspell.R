@@ -57,14 +57,15 @@ find_bad_grammar <- function(x) {
   )
   
   if (is.null(gramr_output)) {
-    return(c())
+    error_collection <- list()
+    error_collection$wrong <- c()
+    error_collection$messages <- c()
+    return(error_collection)
   } else {
-    # print messages
-    for (y in gramr_output) {
-      message(y)
-    }
-    # get bad words
-    return(unique(sapply(strsplit(gramr_output, "\""), function(x) { x[2] })))
+    error_collection <- list()
+    error_collection$wrong <- unique(sapply(strsplit(gramr_output, "\""), function(x) { x[2] }))
+    error_collection$messages <- gramr_output
+    return(error_collection)
   }
 
 }
