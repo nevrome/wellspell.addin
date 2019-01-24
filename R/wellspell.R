@@ -23,7 +23,23 @@ find_bad_spelling <- function(x) {
     dict = hunspell::dictionary(Sys.getenv("wellspell_language"))
   ))
   
-  return(hunspell_output)
+  error_collection <- list()
+  error_collection$wrong <- hunspell_output
+  error_collection$messages <- sapply(
+    hunspell_output,
+      function(y) {
+        a <- paste(
+          hunspell::hunspell_suggest(
+            y,
+            hunspell::dictionary(Sys.getenv("wellspell_language"))
+          )[[1]],
+          collapse = ", "
+        )
+        paste0(y, ": ", a)
+      }
+    )
+    
+  return(error_collection)
   
 }
 
@@ -86,7 +102,10 @@ check <- function(find_bad_function) {
   marker <- list()
   for (p1 in 1:length(row_texts)) {
     
-    potentially_wrong_words <- find_bad_function(row_texts[[p1]])
+    error_collection <- find_bad_function(row_texts[[p1]])
+    
+    potentially_wrong_words <- error_collection$wrong
+    error_messages <- error_collection$messages
     
     # stop with run for current row if no words are wrong
     if (length(potentially_wrong_words) == 0) { next }
@@ -124,7 +143,7 @@ check <- function(find_bad_function) {
       cur_marker$file <- context$path
       cur_marker$line <- rows[p1]
       cur_marker$column <- (start_columns[p1] + positions[p2, 1]) - 1
-      cur_marker$message <- "There's something wrong here!"
+      cur_marker$message <- error_messages[p2]
       marker[[i]] <- cur_marker
       
       i <- i + 1
