@@ -81,8 +81,9 @@ check <- function(find_bad_function) {
   row_texts <- unlist(strsplit(text, "\n"))
 
   # main spellchecking loop: rowwise
-  range <- list()
   i <- 1
+  range <- list()
+  marker <- list()
   for (p1 in 1:length(row_texts)) {
     
     potentially_wrong_words <- find_bad_function(row_texts[[p1]])
@@ -105,8 +106,9 @@ check <- function(find_bad_function) {
     
     # loop to define the wrong words' positions in a form that 
     # the RStudio API can understand
-    # the results are stored in a list of ranges
+    # the results are stored in a list of ranges and a list of markers
     for (p2 in 1:nrow(positions)) {
+      # range
       start <- rstudioapi::document_position(
         row = rows[p1],
         column = (start_columns[p1] + positions[p2, 1]) - 1
@@ -116,6 +118,15 @@ check <- function(find_bad_function) {
         column = (start_columns[p1] + positions[p2, 2]) - 2
       )
       range[[i]] <- rstudioapi::document_range(start, end)
+      # marker
+      cur_marker <- list()
+      cur_marker$type <- "error"
+      cur_marker$file <- context$path
+      cur_marker$line <- rows[p1]
+      cur_marker$column <- (start_columns[p1] + positions[p2, 1]) - 1
+      cur_marker$message <- "There's something wrong here!"
+      marker[[i]] <- cur_marker
+      
       i <- i + 1
     }
   }
@@ -124,6 +135,12 @@ check <- function(find_bad_function) {
   rstudioapi::setSelectionRanges(
     range,
     id = context$id
+  )
+  
+  # set markers
+  rstudioapi::sourceMarkers(
+    name = "wellspell.addin",
+    markers = marker
   )
 
   # message for user if no errors were found
