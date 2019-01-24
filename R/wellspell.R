@@ -140,7 +140,7 @@ check <- function(find_bad_function) {
       range[[i]] <- rstudioapi::document_range(start, end)
       # marker
       cur_marker <- list()
-      cur_marker$type <- "error"
+      cur_marker$type <- "style"
       cur_marker$file <- context$path
       cur_marker$line <- rows[p1]
       cur_marker$column <- (start_columns[p1] + positions[p2, 1]) - 1
