@@ -35,7 +35,12 @@ find_bad_spelling <- function(x) {
           )[[1]],
           collapse = ", "
         )
-        paste0(y, ": ", a)
+        res <- paste0(
+          stringr::str_pad(y, 20, side = "right", pad = " "),
+          " | ",
+          a
+        )
+        return(res)
       }
     )
     
@@ -63,8 +68,12 @@ find_bad_grammar <- function(x) {
     return(error_collection)
   } else {
     error_collection <- list()
-    error_collection$wrong <- unique(sapply(strsplit(gramr_output, "\""), function(x) { x[2] }))
-    error_collection$messages <- gramr_output
+    error_collection$wrong <- sapply(strsplit(gramr_output, "\""), function(x) { x[2] })
+    error_collection$messages <- paste0(
+      stringr::str_pad(error_collection$wrong, 20, side = "right", pad = " "),
+      " | ",
+      sapply(strsplit(gramr_output, "\""), function(x) { x[3] })
+    )
     return(error_collection)
   }
 
