@@ -157,7 +157,7 @@ check <- function(find_bad_function) {
       range[[i]] <- rstudioapi::document_range(start, end)
       # marker
       cur_marker <- list()
-      cur_marker$type <- "style"
+      cur_marker$type <- "warning"
       cur_marker$file <- context$path
       cur_marker$line <- rows[p1]
       cur_marker$column <- (start_columns[p1] + positions[p2, 1]) - 1
@@ -168,6 +168,22 @@ check <- function(find_bad_function) {
     }
   }
 
+  # message for user if no errors were found
+  if (length(range) == 0) {
+    message("wellspell.addin: No errors found.")
+    rstudioapi::sourceMarkers(
+      name = "wellspell.addin",
+      markers = list(list(
+        type = "info",
+        file = context$path,
+        line = range.start.row,
+        column = range.start.column,
+        message = "wellspell.addin: No errors found."
+      ))
+    )
+    return()
+  }
+  
   # use range list to select and thereby highlight wrong words 
   rstudioapi::setSelectionRanges(
     range,
@@ -179,13 +195,6 @@ check <- function(find_bad_function) {
     name = "wellspell.addin",
     markers = marker
   )
-
-  # message for user if no errors were found
-  if (length(range) == 0) {
-    message("No errors found.")
-  }
-  
-  message("")
   
 }
 
