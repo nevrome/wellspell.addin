@@ -132,10 +132,7 @@ check <- function(find_bad_function) {
         paste0("([^\\p{L}])(", x, ")([^\\p{L}])")
       )
       positions_raw[[p3]] <- pos
-      substr(current_row_text, pos[1], pos[2]) <- paste(
-        rep(" ", abs(pos[1]-pos[2])), 
-        collapse = ""
-      )
+      substr(current_row_text, pos[1], pos[1]) <- " "
     }
     positions <- do.call(rbind, positions_raw)
     
