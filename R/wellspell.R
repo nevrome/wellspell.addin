@@ -133,7 +133,7 @@ check <- function(find_bad_function) {
       )
       positions_raw[[p3]] <- pos
       substr(current_row_text, pos[1], pos[2]) <- paste(
-        rep(" ", abs(pos[1]-pos[2]) + 1), 
+        rep(" ", abs(pos[1]-pos[2])), 
         collapse = ""
       )
     }
