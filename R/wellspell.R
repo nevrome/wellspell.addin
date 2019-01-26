@@ -112,7 +112,9 @@ check <- function(find_bad_function) {
   marker <- list()
   for (p1 in 1:length(row_texts)) {
     
-    error_collection <- find_bad_function(row_texts[[p1]])
+    current_row_text <- row_texts[[p1]]
+    
+    error_collection <- find_bad_function(current_row_text)
     
     potentially_wrong_words <- error_collection$wrong
     error_messages <- error_collection$messages
@@ -121,11 +123,20 @@ check <- function(find_bad_function) {
     if (length(potentially_wrong_words) == 0) { next }
     
     # find position of wrong words
-    positions_raw <- stringr::str_locate_all(
-      paste0(" ", row_texts[p1], " "),
-      # ignore words that are part of other words
-      paste0("([^\\p{L}])(", potentially_wrong_words, ")([^\\p{L}])")
-    )
+    positions_raw <- list()
+    for (p3 in 1:length(potentially_wrong_words)) {
+      x <- potentially_wrong_words[p3]
+      pos <- stringr::str_locate(
+        paste0(" ", current_row_text, " "),
+        # ignore words that are part of other words
+        paste0("([^\\p{L}])(", x, ")([^\\p{L}])")
+      )
+      positions_raw[[p3]] <- pos
+      substr(current_row_text, pos[1], pos[2]) <- paste(
+        rep(" ", abs(pos[1]-pos[2]) + 1), 
+        collapse = ""
+      )
+    }
     positions <- do.call(rbind, positions_raw)
     
     # stop if the wrong words can not be found. That can happen
