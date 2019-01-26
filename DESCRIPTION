@@ -13,6 +13,7 @@ Imports:
   miniUI,
   rstudioapi,
   shiny,
+  stringi,
   stringr
 Remotes: 
   ropenscilabs/gramr,

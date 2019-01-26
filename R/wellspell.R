@@ -36,7 +36,10 @@ find_bad_spelling <- function(x) {
           collapse = ", "
         )
         res <- paste0(
-          stringr::str_pad(y, 20, side = "right", pad = " "),
+          stringr::str_pad(
+            y, 20, side = "right", 
+            pad = stringi::stri_unescape_unicode("\u2007")
+          ),
           " | ",
           a
         )
@@ -70,7 +73,10 @@ find_bad_grammar <- function(x) {
     error_collection <- list()
     error_collection$wrong <- sapply(strsplit(gramr_output, "\""), function(x) { x[2] })
     error_collection$messages <- paste0(
-      stringr::str_pad(error_collection$wrong, 20, side = "right", pad = " "),
+      stringr::str_pad(
+        error_collection$wrong, 20, side = "right", 
+        pad = stringi::stri_unescape_unicode("\u2007")
+      ),
       " | ",
       sapply(strsplit(gramr_output, "\""), function(x) { x[3] })
     )
