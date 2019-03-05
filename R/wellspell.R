@@ -55,7 +55,10 @@ find_bad_spelling <- function(x) {
 find_bad_grammar <- function(x) {
   
   # run grammar check
-  languagetool_output <- LanguageToolR::languagetool(x)
+  languagetool_output <- LanguageToolR::languagetool(
+    x, 
+    quiet = TRUE
+  )
   
   if (is.null(languagetool_output)) {
     error_collection <- list()
@@ -110,6 +113,7 @@ check <- function(find_bad_function) {
   row_texts <- unlist(strsplit(text, "\n"))
 
   # main spellchecking loop: rowwise
+  pb <- utils::txtProgressBar(style = 3)
   i <- 1
   range <- list()
   marker <- list()
@@ -176,8 +180,11 @@ check <- function(find_bad_function) {
       
       i <- i + 1
     }
+    
+    utils::setTxtProgressBar(pb, p1/length(row_texts))
   }
-
+  close(pb)
+  
   # message for user if no errors were found
   if (length(range) == 0) {
     message("wellspell.addin: No errors found.")
