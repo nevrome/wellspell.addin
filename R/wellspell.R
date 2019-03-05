@@ -19,11 +19,12 @@ find_bad_spelling <- function(x) {
   # run spellcheck and get bad words
   hunspell_output <- unlist(hunspell::hunspell(
     good_words, 
-    format = Sys.getenv("wellspell_format"),
-    dict = hunspell::dictionary(Sys.getenv("wellspell_language"))
+    format = Sys.getenv("wellspell_format_hunspell"),
+    dict = hunspell::dictionary(Sys.getenv("wellspell_language_hunspell"))
   ))
   
   error_collection <- list()
+  error_collection$func <- "find_bad_spelling"
   error_collection$wrong <- hunspell_output
   error_collection$messages <- sapply(
     hunspell_output,
@@ -53,32 +54,32 @@ find_bad_spelling <- function(x) {
 
 find_bad_grammar <- function(x) {
   
-  # set ignore options based on global variable
-  options <- unlist(strsplit(Sys.getenv("wellspell_grammar_ignore"), "/"))
-  option_list <- lapply(options, function(x) { FALSE })
-  names(option_list) <- options
-  
   # run grammar check
-  gramr_output <- gramr::check_grammar(
-    x,
-    options = option_list
+  languagetool_output <- LanguageToolR::languagetool(
+    x, 
+    language = Sys.getenv("wellspell_language_languagetool"),
+    quiet = TRUE
   )
   
-  if (is.null(gramr_output)) {
+  if (is.null(languagetool_output)) {
     error_collection <- list()
     error_collection$wrong <- c()
     error_collection$messages <- c()
     return(error_collection)
   } else {
     error_collection <- list()
-    error_collection$wrong <- sapply(strsplit(gramr_output, "\""), function(x) { x[2] })
+    error_collection$func <- "find_bad_grammar"
+    error_collection$type
+    error_collection$wrong <- trimws(
+      gsub("^(\\.\\.\\.\\s*)|(\\s*\\.\\.\\.)$", "", languagetool_output$context_text)
+    )
     error_collection$messages <- paste0(
       stringr::str_pad(
-        error_collection$wrong, 20, side = "right", 
+        languagetool_output$rule_category_name, 20, side = "right", 
         pad = stringi::stri_unescape_unicode("\u2007")
       ),
       " | ",
-      sapply(strsplit(gramr_output, "\""), function(x) { x[3] })
+      languagetool_output$message
     )
     return(error_collection)
   }
@@ -113,6 +114,7 @@ check <- function(find_bad_function) {
   row_texts <- unlist(strsplit(text, "\n"))
 
   # main spellchecking loop: rowwise
+  pb <- utils::txtProgressBar(style = 3)
   i <- 1
   range <- list()
   marker <- list()
@@ -132,21 +134,28 @@ check <- function(find_bad_function) {
     positions_raw <- list()
     for (p3 in 1:length(potentially_wrong_words)) {
       x <- potentially_wrong_words[p3]
-      pos <- stringr::str_locate(
-        paste0(" ", current_row_text, " "),
-        # ignore words that are part of other words
-        paste0("([^\\p{L}])(", x, ")([^\\p{L}])")
-      )
+      if (error_collection$func == "find_bad_spelling") {
+        pos <- stringr::str_locate(
+          paste0(" ", current_row_text, " "),
+          # ignore words that are part of other words
+          paste0("([^\\p{L}])(", x, ")([^\\p{L}])")
+        )
+      } else if (error_collection$func == "find_bad_grammar") {
+        pos <- stringr::str_locate(
+          paste0(" ", current_row_text, " "),
+          stringr::coll(x)
+        )
+      }
       positions_raw[[p3]] <- pos
       substr(current_row_text, pos[1], pos[1]) <- " "
     }
     positions <- do.call(rbind, positions_raw)
     
     # stop if the wrong words can not be found. That can happen
-    # if half words where selected and identified as errors
+    # if incomplete words where selected and identified as errors
     # by hunspell
-    if (nrow(positions) == 0) { next }
-    
+    if (nrow(positions) == 0 | any(is.na(positions))) { next }
+
     # loop to define the wrong words' positions in a form that 
     # the RStudio API can understand
     # the results are stored in a list of ranges and a list of markers
@@ -172,8 +181,11 @@ check <- function(find_bad_function) {
       
       i <- i + 1
     }
+    
+    utils::setTxtProgressBar(pb, p1/length(row_texts))
   }
-
+  close(pb)
+  
   # message for user if no errors were found
   if (length(range) == 0) {
     message("wellspell.addin: No errors found.")
