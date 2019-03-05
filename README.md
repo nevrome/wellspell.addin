@@ -3,7 +3,7 @@
 
 # wellspell.addin
 
-![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/trump.gif)
+![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/trump2.gif)
 
 ### Quickstart
 
