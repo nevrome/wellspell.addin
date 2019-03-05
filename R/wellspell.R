@@ -19,8 +19,8 @@ find_bad_spelling <- function(x) {
   # run spellcheck and get bad words
   hunspell_output <- unlist(hunspell::hunspell(
     good_words, 
-    format = Sys.getenv("wellspell_format"),
-    dict = hunspell::dictionary(Sys.getenv("wellspell_language"))
+    format = Sys.getenv("wellspell_format_hunspell"),
+    dict = hunspell::dictionary(Sys.getenv("wellspell_language_hunspell"))
   ))
   
   error_collection <- list()
@@ -57,6 +57,7 @@ find_bad_grammar <- function(x) {
   # run grammar check
   languagetool_output <- LanguageToolR::languagetool(
     x, 
+    language = Sys.getenv("wellspell_language_languagetool"),
     quiet = TRUE
   )
   
