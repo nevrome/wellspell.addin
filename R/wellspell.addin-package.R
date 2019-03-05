@@ -1,14 +1,13 @@
 #' @rdname wellspell
 #' @title wellspell.addin
 #' 
-#' @description wellspell is an RStudio Addin to quickly highlight words with
+#' @description wellspell is an RStudio Addin to quickly highlight 
 #' spelling or grammar errors in text documents. It employs the
 #' \href{http://hunspell.github.io}{hunspell spell checking engine}
 #' via the \href{https://github.com/ropensci/hunspell}{hunspell package}
-#' and the \href{https://github.com/btford/write-good}{write-good} linter
-#' via the \href{https://github.com/ropenscilabs/gramr}{gramr package}
-#' to do so. Spellchecking works for many languages, grammar checking is limited
-#' to english text.
+#' and the \href{https://www.languagetool.org}{LanguageTool} grammar checking engine
+#' via the \href{https://github.com/nevrome/LanguageToolR}{LanguageToolR package}
+#' to do so. Checking works for many languages.
 #' 
 #' To use it, you can select an arbitrary amount of text in a text document
 #' in RStudio (e.g. a markdown, latex or html document) and run \code{spellcheck()}
@@ -18,13 +17,7 @@
 #' 
 #' At the first run in a new environment, \code{spellcheck()} and \code{gramcheck()}
 #' will call \code{set_config()}, which is another Addin with a minimalistic user interface.
-#' It allows you to set three environment variables \code{wellspell_language},
-#' \code{wellspell_format} and \code{wellspell_grammar_ignore}.
-#' These are used to configure \code{hunspell::hunspell()} and \code{gramr::check_grammar()}.
-#' \code{wellspell_language} is fed to \code{hunspell(dict = dictionary(lang = ...))},
-#' \code{wellspell_format} to \code{hunspell(format = ...)} and
-#' \code{wellspell_grammar_ignore} to \code{check_grammar(options = ...)}
-#' 
+#' It allows you to set environment variables to control the behaviour of the checking tools.
 #' If the environment variables are set, \code{spellcheck()} and \code{gramcheck()}
 #' select and thereby highlight all words/expressions identified as wrong.
 #' 
