@@ -97,6 +97,11 @@ check <- function(find_bad_function) {
   # get selected text from RStudio API
   context <- rstudioapi::getSourceEditorContext()
 
+  # check context
+  if (nchar(context$path) == 0) {
+    stop("Unknown source file path. Is the file where you apply wellspell saved?")
+  }
+  
   # stop with there is no text for current row
   if (as.character(unlist(context$selection)["text"]) == "") { 
     stop("No text selected.")  
