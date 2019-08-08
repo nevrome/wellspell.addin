@@ -12,13 +12,27 @@ get_config <- function() {
 #' @rdname wellspell
 #' @export
 is_config <- function() {
-  nchar(Sys.getenv("wellspell_language")) != 0 & nchar(Sys.getenv("wellspell_format")) != 0
+  all(sapply(
+    c(
+      "wellspell_language_hunspell", 
+      "wellspell_format_hunspell", 
+      "wellspell_language_languagetool"
+    ),
+    function(x) { nchar(Sys.getenv(x)) != 0 }
+  ))
 }
 
 #' @rdname wellspell
 #' @export
 rm_config <- function() {
-  Sys.unsetenv(c("wellspell_language", "wellspell_format", "wellspell_grammar_ignore"))
+  Sys.unsetenv(
+    c(
+      "wellspell_language_hunspell", 
+      "wellspell_format_hunspell", 
+      "wellspell_language_languagetool", 
+      "wellspell_grammar_ignore"
+    )
+  )
 }
 
 #' @rdname wellspell
