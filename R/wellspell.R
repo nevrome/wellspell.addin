@@ -32,7 +32,7 @@ find_bad_spelling <- function(x) {
         a <- paste(
           hunspell::hunspell_suggest(
             y,
-            hunspell::dictionary(Sys.getenv("wellspell_language"))
+            hunspell::dictionary(Sys.getenv("wellspell_language_hunspell"))
           )[[1]],
           collapse = ", "
         )

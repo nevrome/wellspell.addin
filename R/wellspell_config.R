@@ -2,8 +2,9 @@
 #' @export
 get_config <- function() {
   c(
-    wellspell_language = Sys.getenv("wellspell_language"),
-    wellspell_format = Sys.getenv("wellspell_format"),
+    wellspell_language_hunspell = Sys.getenv("wellspell_language_hunspell"),
+    wellspell_format_hunspell = Sys.getenv("wellspell_format_hunspell"),
+    wellspell_language_languagetool = Sys.getenv("wellspell_language_languagetool"),
     wellspell_grammar_ignore = Sys.getenv("wellspell_grammar_ignore")
   )
 }
