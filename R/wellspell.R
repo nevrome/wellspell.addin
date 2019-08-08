@@ -10,6 +10,9 @@ gramcheck <- function() { return(check(find_bad_grammar)) }
 
 find_bad_spelling <- function(x) {
   
+  # check if hunspell is available
+  check_if_packages_are_available("hunspell")
+  
   # get all words of current row
   all_words <- unlist(stringr::str_split(x, " "))
   
@@ -53,6 +56,9 @@ find_bad_spelling <- function(x) {
 }
 
 find_bad_grammar <- function(x) {
+  
+  # check if LanguageToolR is available
+  check_if_packages_are_available("LanguageToolR")
   
   # run grammar check
   languagetool_output <- LanguageToolR::languagetool(
@@ -101,8 +107,6 @@ check <- function(find_bad_function) {
   if (nchar(context$path) == 0) {
     stop("Unknown source file path. Is the file where you apply wellspell saved?")
   }
-  
-  # stop with there is no text for current row
   if (as.character(unlist(context$selection)["text"]) == "") { 
     stop("No text selected.")  
   }

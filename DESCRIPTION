@@ -8,13 +8,13 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
-  hunspell,
-  LanguageToolR,
   miniUI,
   rstudioapi,
   shiny,
   stringi,
   stringr
+Suggests:
+  hunspell,
+  LanguageToolR
 Remotes: 
-  nevrome/LanguageToolR,
-  ropensci/hunspell
+  nevrome/LanguageToolR
