@@ -21,3 +21,8 @@ check_if_packages_are_available <- function(x) {
     )
   }
 }
+
+# simple test if hunspell works as expected
+test_hunspell <- function() {
+  hunspell::hunspell("pantoffel")[[1]] == "pantoffel"
+}
