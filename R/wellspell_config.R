@@ -12,7 +12,7 @@ get_config <- function() {
 #' @rdname wellspell
 #' @export
 is_config <- function() {
-  all(sapply(
+  any(sapply(
     c(
       "wellspell_language_hunspell", 
       "wellspell_format_hunspell", 
