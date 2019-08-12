@@ -77,9 +77,9 @@ set_config <- function() {
   }
   
   #### LanguageTool ####
-  if (requireNamespace("LanguageToolR", quietly = TRUE) & LanguageToolR::test_setup()) {
+  if (requireNamespace("LanguageToolR", quietly = TRUE) & LanguageToolR::lato_test_setup()) {
     
-    languagetool_dicts <- LanguageToolR::languages()$id
+    languagetool_dicts <- LanguageToolR::lato_list_languages()$id
     default_dict_languagetool <- ifelse("en-GB" %in% languagetool_dicts, "en-GB", languagetool_dicts[1])
     
     LanguageTool_panel <- miniUI::miniTabPanel(
