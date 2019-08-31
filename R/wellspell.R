@@ -1,10 +1,10 @@
 #' @rdname wellspell
 #' @export
-spellcheck <- function() { return(check(find_bad_spelling)) }
+spellcheck <- function() { return(try(check(find_bad_spelling))) }
 
 #' @rdname wellspell
 #' @export
-gramcheck <- function() { return(check(find_bad_grammar)) } 
+gramcheck <- function() { return(try(check(find_bad_grammar))) } 
 
 #### algorithm functions ####
 
