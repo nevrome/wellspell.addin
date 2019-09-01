@@ -38,5 +38,3 @@
 #' \code{hunspell::dicpath()}.
 #' 
 "_PACKAGE"
-
-utils::globalVariables(c(".rs.readUiPref", ".rs.writeUiPref"))
