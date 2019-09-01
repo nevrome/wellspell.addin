@@ -65,4 +65,9 @@ install languages by copying the dictionary files (.dic + .aff) to one of these 
 \author{
 \strong{Maintainer}: Clemens Schmid \email{clemens@nevrome.de}
 
+Other contributors:
+\itemize{
+  \item Vilmantas Gegzna [contributor]
+}
+
 }
