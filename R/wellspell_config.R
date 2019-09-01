@@ -51,7 +51,7 @@ rm_config <- function() {
 #' If `NULL`, the function gets a list of installed dictionaries.
 #'
 #' @return String with default language or `""`.
-#' @export
+#' @keywords internal
 #' @md
 get_default_dict_hunspell <- function(hunspell_dicts = NULL) {
   if (is.null(hunspell_dicts)) {
@@ -99,7 +99,7 @@ get_default_dict_hunspell <- function(hunspell_dicts = NULL) {
 #' If `NULL`, the function gets a list of installed dictionaries.
 #'
 #' @return String with default language or `""`.
-#' @export
+#' @keywords internal
 #' @md
 get_default_dict_languagetool <- function(languagetool_dicts = NULL) {
   if (is.null(languagetool_dicts)) {
