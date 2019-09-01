@@ -46,7 +46,7 @@ rm_config <- function() {
 #' If it is not present, the first language in the list is selected.
 #' If the list is empty, empty string `""` is returned.
 #' 
-#' @param languagetool_dicts (character or `NULL`) A list of hunspell dictionaries
+#' @param hunspell_dicts (character or `NULL`) A list of hunspell dictionaries
 #' as a character vector.
 #' If `NULL`, the function gets a list of installed dictionaries.
 #'
