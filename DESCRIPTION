@@ -1,7 +1,10 @@
 Package: wellspell.addin
-Title: Quick Spellcheck Addin for RStudio
-Version: 0.4.1
-Authors@R: person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre"))
+Title: Quick Spelling and Grammar Checking Addin for RStudio
+Version: 0.4.2
+Authors@R: c(
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre")),
+  person("Vilmantas", "Gegzna", role = "ctb")
+  )
 Description: RStudio Addin to quickly highlight words with spelling and grammar errors in text documents. 
 License: MIT + file LICENSE
 Encoding: UTF-8
