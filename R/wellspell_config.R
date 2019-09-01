@@ -228,7 +228,16 @@ set_config <- function() {
       # Change default RStudio spelling language 
       # (to match the language of the tool called by <F7> button)
       if (exists(".rs.writeUiPref")) {
-        .rs.writeUiPref("spelling_dictionary_language", input$language_selection_hunspell)
+        new_default_lang <- input$language_selection_hunspell
+        if (.rs.readUiPref("spelling_dictionary_language") != new_default_lang) {
+          message(
+            "\nNOTE: The default RStudio spellchecking language was changed to ",
+            new_default_lang,
+            ".\n"
+          )
+          
+          .rs.writeUiPref("spelling_dictionary_language", new_default_lang)
+        }
       } 
       
       invisible(shiny::stopApp())
