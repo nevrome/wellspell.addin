@@ -52,6 +52,7 @@ rm_config <- function() {
 #'
 #' @return String with default language or `""`.
 #' @keywords internal
+#' @noRd
 #' @md
 get_default_dict_hunspell <- function(hunspell_dicts = NULL) {
   if (is.null(hunspell_dicts)) {
@@ -100,6 +101,7 @@ get_default_dict_hunspell <- function(hunspell_dicts = NULL) {
 #'
 #' @return String with default language or `""`.
 #' @keywords internal
+#' @noRd
 #' @md
 get_default_dict_languagetool <- function(languagetool_dicts = NULL) {
   if (is.null(languagetool_dicts)) {
