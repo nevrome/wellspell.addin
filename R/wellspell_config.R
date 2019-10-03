@@ -225,7 +225,7 @@ set_config <- function() {
         wellspell_language_hunspell = ifelse(is.null(input$language_selection_hunspell), "", input$language_selection_hunspell),
         wellspell_format_hunspell = ifelse(is.null(input$format_selection), "", input$format_selection),
         wellspell_language_languagetool = ifelse(is.null(input$language_selection_languagetool), "", input$language_selection_languagetool),
-        wellspell_grammar_ignore = stringi::stri_join(input$grammar_ignore, collapse = "/", sep = " ")
+        wellspell_grammar_ignore = paste(input$grammar_ignore, collapse = "/")
       )
       # Change default RStudio spelling language 
       # (to match the language of the tool called by <F7> button)
