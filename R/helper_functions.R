@@ -11,11 +11,11 @@ check_if_packages_are_available <- function(x) {
     !all(sapply(x, function(x) {requireNamespace(x, quietly = TRUE)}))
   ) {
     stop(
-      paste0(
+      stringi::stri_join(
         "R packages ",
-        paste(x, collapse = ", "),
+        stringi::stri_join(x, collapse = ", "),
         " needed for this function to work. Please install with ",
-        "install.packages(c('", paste(x, collapse = "', '"), "'))"
+        "install.packages(c('", stringi::stri_join(x, collapse = "', '"), "'))"
       ),
       call. = FALSE
     )

@@ -32,14 +32,14 @@ find_bad_spelling <- function(x) {
   error_collection$messages <- sapply(
     hunspell_output,
       function(y) {
-        a <- paste(
+        a <- stringi::stri_join(sep = " ",
           hunspell::hunspell_suggest(
             y,
             hunspell::dictionary(Sys.getenv("wellspell_language_hunspell"))
           )[[1]],
           collapse = ", "
         )
-        res <- paste0(
+        res <- stringi::stri_join(
           stringr::str_pad(
             y, 20, side = "right", 
             pad = stringi::stri_unescape_unicode("\u2007")
@@ -79,7 +79,7 @@ find_bad_grammar <- function(x) {
     error_collection$wrong <- trimws(
       gsub("^(\\.\\.\\.\\s*)|(\\s*\\.\\.\\.)$", "", languagetool_output$context_text)
     )
-    error_collection$messages <- paste0(
+    error_collection$messages <- stringi::stri_join(
       stringr::str_pad(
         languagetool_output$rule_category_name, 20, side = "right", 
         pad = stringi::stri_unescape_unicode("\u2007")
@@ -145,13 +145,13 @@ check <- function(find_bad_function) {
       x <- potentially_wrong_words[p3]
       if (error_collection$func == "find_bad_spelling") {
         pos <- stringr::str_locate(
-          paste0(" ", current_row_text, " "),
+          stringi::stri_join(" ", current_row_text, " "),
           # ignore words that are part of other words
-          paste0("([^\\p{L}])(", x, ")([^\\p{L}])")
+          stringi::stri_join("([^\\p{L}])(", x, ")([^\\p{L}])")
         )
       } else if (error_collection$func == "find_bad_grammar") {
         pos <- stringr::str_locate(
-          paste0(" ", current_row_text, " "),
+          stringi::stri_join(" ", current_row_text, " "),
           stringr::coll(x)
         )
       }
