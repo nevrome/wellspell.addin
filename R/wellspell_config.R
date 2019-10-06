@@ -104,16 +104,12 @@ get_default_dict_hunspell <- function(hunspell_dicts = NULL) {
 #' @noRd
 #' @md
 get_default_dict_languagetool <- function(languagetool_dicts = NULL) {
+  
   if (is.null(languagetool_dicts)) {
     languagetool_dicts <- tryCatch(
       LanguageToolR::lato_list_languages()$id,
       error = function(e) return("")
     )
-  }
-  
-  
-  two_letters <- function(str) {
-    substr(str, 1, 2)
   }
   
   # Try matching default language in RStudio first
@@ -134,6 +130,9 @@ get_default_dict_languagetool <- function(languagetool_dicts = NULL) {
   }
 }
 
+two_letters <- function(str) {
+  substr(str, 1, 2)
+}
 
 
 
@@ -182,9 +181,17 @@ set_config <- function() {
   #### LanguageTool ####
   if (requireNamespace("LanguageToolR", quietly = TRUE) & LanguageToolR::lato_test_setup()) {
     
-    languagetool_dicts <- LanguageToolR::lato_list_languages()$id
-    default_dict_languagetool <- 
-      get_default_dict_languagetool(languagetool_dicts = languagetool_dicts)
+    # get and store languagetool language list
+    # the list is stored in an environment variable to increase loading performance
+    wellspell_languagetool_list <- Sys.getenv("wellspell_languagetool_list")
+    if (wellspell_languagetool_list == "") {
+      languagetool_dicts <- LanguageToolR::lato_list_languages()$id
+      Sys.setenv(wellspell_languagetool_list = stringi::stri_join(languagetool_dicts, collapse = ","))
+    } else {
+      languagetool_dicts <- strsplit(wellspell_languagetool_list, ",")[[1]]
+    }
+    
+    default_dict_languagetool <- get_default_dict_languagetool(languagetool_dicts = languagetool_dicts)
     
     LanguageTool_panel <- miniUI::miniTabPanel(
       "Grammar check", icon = shiny::icon("ruler"),
