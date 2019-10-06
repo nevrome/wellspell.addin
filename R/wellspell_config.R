@@ -227,6 +227,10 @@ set_config <- function() {
   
   server <- function(input, output, session) {
     
+    shiny::observeEvent(input$cancel, {
+      invisible(shiny::stopApp())
+    })
+    
     shiny::observeEvent(input$done, {
       Sys.setenv(
         wellspell_language_hunspell = ifelse(is.null(input$language_selection_hunspell), "", input$language_selection_hunspell),
@@ -258,6 +262,6 @@ set_config <- function() {
     width = 300,
     height = 430
   )
-  shiny::runGadget(ui, server, viewer = viewer)  
+  shiny::runGadget(ui, server, viewer = viewer, stopOnCancel = FALSE)  
   
 }
