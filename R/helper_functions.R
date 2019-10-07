@@ -26,3 +26,14 @@ check_if_packages_are_available <- function(x) {
 test_hunspell <- function() {
   hunspell::hunspell("pantoffel")[[1]] == "pantoffel"
 }
+
+#' Deselect text in RStudio document.
+#'  
+#' @param context The resut of rstudioapi::getSourceEditorContext()
+#' @keywords internal
+#' @noRd
+deselect_rstudio_range <- function(context) {
+    pos <- context$selection[[1]]$range[["start"]]
+    rng <- rstudioapi::document_range(pos, end = pos)
+    rstudioapi::setSelectionRanges(ranges = rng, id = context$id)
+}
