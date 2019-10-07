@@ -208,6 +208,7 @@ check <- function(find_bad_function) {
         message = "wellspell.addin: No errors found."
       ))
     )
+    deselect_rstudio_range(context)
     return()
   }
   
