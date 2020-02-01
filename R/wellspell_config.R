@@ -172,7 +172,9 @@ set_config <- function() {
     hunspell_panel <- miniUI::miniTabPanel(
       "Spellcheck", icon = shiny::icon("language"),
       miniUI::miniContentPanel(
-        shiny::div("Package 'hunspell' is either missing or works incorrectly.")
+        shiny::div(paste0(
+          "Spelling cannot be checked as package 'hunspell' is either ",
+          "missing or works incorrectly."))
       )
     )
 
@@ -211,7 +213,9 @@ set_config <- function() {
     LanguageTool_panel <- miniUI::miniTabPanel(
       "Grammar check", icon = shiny::icon("ruler"),
       miniUI::miniContentPanel(
-        shiny::div("Package 'LanguageToolR' is either missing or configured incorrectly.")
+        shiny::div(paste0(
+          "Grammar cannot be checked as package 'LanguageToolR' is either ",
+          "missing or configured incorrectly."))
       )
     )
 
