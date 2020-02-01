@@ -28,7 +28,7 @@ test_hunspell <- function() {
 }
 
 #' Deselect text in RStudio document.
-#'  
+#'
 #' @param context The resut of rstudioapi::getSourceEditorContext()
 #' @keywords internal
 #' @noRd
