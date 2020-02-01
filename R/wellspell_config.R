@@ -266,6 +266,9 @@ set_config <- function() {
     width = 300,
     height = 430
   )
-  shiny::runGadget(ui, server, viewer = viewer, stopOnCancel = FALSE)
+
+  suppressPackageStartupMessages({
+    shiny::runGadget(ui, server, viewer = viewer, stopOnCancel = FALSE)
+  })
 }
 
