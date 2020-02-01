@@ -98,6 +98,11 @@ check <- function(find_bad_function) {
   # if not: call set_config() addin
   if (!is_config()) {
     set_config()
+
+    if (!is_config()) {
+      message("Canceled.")
+      return(invisible())
+    }
   }
 
   # get selected text from RStudio API
@@ -209,7 +214,7 @@ check <- function(find_bad_function) {
       ))
     )
     deselect_rstudio_range(context)
-    return()
+    return(invisible())
   }
 
   # use range list to select and thereby highlight wrong words
@@ -223,5 +228,5 @@ check <- function(find_bad_function) {
     name = "wellspell.addin",
     markers = marker
   )
-
+  invisible()
 }
