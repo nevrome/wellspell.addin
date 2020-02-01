@@ -1,12 +1,12 @@
 Name: Quick spellcheck with wellspell.addin
 Description: Selects and thereby highlights wrong words
 Binding: spellcheck
-Interactive: false
+Interactive: true
 
 Name: Quick grammar check with wellspell.addin
 Description: Selects and thereby highlights grammar errors
 Binding: gramcheck
-Interactive: false
+Interactive: true
 
 Name: Configuration of wellspell.addin
 Description: Sets environment variables for wellspell.addin
