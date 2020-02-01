@@ -94,6 +94,8 @@ find_bad_grammar <- function(x) {
 
 check <- function(find_bad_function) {
 
+  show_console() # make visible what's happening in console.
+
   # check if environment variables for configuration are set
   # if not: call set_config() addin
   if (!is_config()) {
