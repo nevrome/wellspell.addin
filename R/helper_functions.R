@@ -12,9 +12,9 @@ check_if_packages_are_available <- function(x) {
   ) {
     stop(
       stringi::stri_join(
-        "R packages ",
+        "\nR package(s) ",
         stringi::stri_join(x, collapse = ", "),
-        " needed for this function to work. Please install with ",
+        " needed for this function to work. \nPlease install with ",
         "install.packages(c('", stringi::stri_join(x, collapse = "', '"), "'))"
       ),
       call. = FALSE
