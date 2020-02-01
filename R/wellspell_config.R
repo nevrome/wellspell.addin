@@ -141,7 +141,7 @@ two_letters <- function(str) {
 set_config <- function() {
 
   #### hunspell ####
-  if (requireNamespace("hunspell", quietly = TRUE) & test_hunspell()) {
+  if (requireNamespace("hunspell", quietly = TRUE) && test_hunspell()) {
 
     hunspell_dicts <- hunspell::list_dictionaries()
     default_dict_hunspell <-
@@ -179,7 +179,7 @@ set_config <- function() {
   }
 
   #### LanguageTool ####
-  if (requireNamespace("LanguageToolR", quietly = TRUE) & LanguageToolR::lato_test_setup()) {
+  if (requireNamespace("LanguageToolR", quietly = TRUE) && LanguageToolR::lato_test_setup()) {
 
     # get and store languagetool language list
     # the list is stored in an environment variable to increase loading performance
