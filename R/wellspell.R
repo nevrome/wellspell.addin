@@ -31,25 +31,25 @@ find_bad_spelling <- function(x) {
   error_collection$wrong <- hunspell_output
   error_collection$messages <- sapply(
     hunspell_output,
-      function(y) {
-        a <- stringi::stri_join(sep = " ",
-          hunspell::hunspell_suggest(
-            y,
-            hunspell::dictionary(Sys.getenv("wellspell_language_hunspell"))
-          )[[1]],
-          collapse = ", "
-        )
-        res <- stringi::stri_join(
-          stringr::str_pad(
-            y, 20, side = "right",
-            pad = stringi::stri_unescape_unicode("\u2007")
-          ),
-          " | ",
-          a
-        )
-        return(res)
-      }
-    )
+    function(y) {
+      a <- stringi::stri_join(sep = " ",
+        hunspell::hunspell_suggest(
+          y,
+          hunspell::dictionary(Sys.getenv("wellspell_language_hunspell"))
+        )[[1]],
+        collapse = ", "
+      )
+      res <- stringi::stri_join(
+        stringr::str_pad(
+          y, 20, side = "right",
+          pad = stringi::stri_unescape_unicode("\u2007")
+        ),
+        " | ",
+        a
+      )
+      return(res)
+    }
+  )
 
   return(error_collection)
 
