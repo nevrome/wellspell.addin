@@ -112,10 +112,13 @@ check <- function(find_bad_function) {
 
   # check context
   if (nchar(context$path) == 0) {
-    stop("Unknown source file path. Is the file where you apply wellspell saved?")
+    stop(
+      "Unknown source file path. Is the file where you apply 'wellspell' saved?",
+      call. = FALSE
+    )
   }
   if (as.character(unlist(context$selection)["text"]) == "") {
-    stop("No text selected.")
+    stop("No text selected.", call. = FALSE)
   }
 
   # extract relevant values from API output
