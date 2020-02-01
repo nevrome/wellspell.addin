@@ -140,6 +140,8 @@ two_letters <- function(str) {
 #' @export
 set_config <- function() {
 
+  show_console() # make visible what's happening in console.
+
   #### hunspell ####
   if (requireNamespace("hunspell", quietly = TRUE) && test_hunspell()) {
 
