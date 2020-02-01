@@ -37,3 +37,17 @@ deselect_rstudio_range <- function(context) {
     rng <- rstudioapi::document_range(pos, end = pos)
     rstudioapi::setSelectionRanges(ranges = rng, id = context$id)
 }
+
+# Show console window, if hidden, and move focus to it
+show_console <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261")) {
+    rstudioapi::executeCommand("activateConsole", quiet = TRUE)
+  }
+}
+
+# Show source editor's window, if hidden, and move focus to it
+show_source_editor <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261")) {
+    rstudioapi::executeCommand("activateSource", quiet = TRUE)
+  }
+}
