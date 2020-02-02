@@ -1,6 +1,6 @@
 Package: wellspell.addin
 Title: Quick Spelling and Grammar Checking Addin for RStudio
-Version: 0.4.3
+Version: 0.4.4
 Authors@R: c(
   person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut", "cre")),
   person("Vilmantas", "Gegzna", role = "ctb")

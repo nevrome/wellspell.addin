@@ -1,14 +1,14 @@
-Name: Quick spellcheck with wellspell.addin
-Description: Selects and thereby highlights wrong words
+Name: Check spelling
+Description: Highlights misspelled words in selection
 Binding: spellcheck
 Interactive: true
 
-Name: Quick grammar check with wellspell.addin
-Description: Selects and thereby highlights grammar errors
+Name: Check grammar
+Description: Highlights grammar errors in selection
 Binding: gramcheck
 Interactive: true
 
-Name: Configuration of wellspell.addin
+Name: Choose language of dictionary / Configure wellspell.addin
 Description: Sets environment variables for wellspell.addin
 Binding: set_config
 Interactive: true
