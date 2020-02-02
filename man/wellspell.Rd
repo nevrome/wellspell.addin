@@ -62,6 +62,15 @@ If this doesn't work or the relevant languages are not in the default selection 
 install languages by copying the dictionary files (.dic + .aff) to one of these locations:
 \code{hunspell::dicpath()}.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/nevrome/wellspell.addin}
+  \item \url{https://nevrome.github.io/wellspell.addin}
+  \item Report bugs at \url{https://github.com/nevrome/wellspell.addin/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Clemens Schmid \email{clemens@nevrome.de}
 

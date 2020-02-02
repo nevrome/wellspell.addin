@@ -21,3 +21,8 @@ Suggests:
   LanguageToolR (>= 0.1.2)
 Remotes: 
   nevrome/LanguageToolR
+URL: 
+  https://github.com/nevrome/wellspell.addin,
+  https://nevrome.github.io/wellspell.addin
+BugReports: 
+  https://github.com/nevrome/wellspell.addin/issues
