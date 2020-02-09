@@ -18,15 +18,14 @@ knitr::opts_chunk$set(
 
 ![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/mastake.gif)
 
-
 ```{r, echo=FALSE, results='asis'}
 zz <- textConnection("rd", "w")
 tools::Rd2txt("man/wellspell.Rd", zz)
 close(zz)
 
 rd <- gsub("\\*", "**", rd)
-rd <- gsub("‘", "`", rd)
-rd <- gsub("’", "`", rd)
+rd <- gsub("\\'", "`", rd)
+rd <- gsub("\\'", "`", rd)
 rd <- gsub("            •", "  -", rd)
 rd <- gsub("    ", "", rd)
 

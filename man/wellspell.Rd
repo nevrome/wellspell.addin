@@ -74,13 +74,13 @@ directly.
 
 \strong{How to install hunspell dictionaries for other languages?}
 
-RStudio's default installation includes English dictionaries for the US, UK, Canada,
+A default RStudio installation includes English dictionaries for the US, UK, Canada,
 and Australia. In addition, dictionaries for many other languages can be installed.
 To add these dictionaries, go to the \emph{Spelling} pane of the \emph{Options} dialog, and
 select \emph{Install More Languages...} from the language dictionary select box. This will
 download and install all of the available languages. Further instructions can be found
 \href{https://support.rstudio.com/hc/en-us/articles/200551916-Spelling-Dictionaries}{here}.
-If this doesn't work or the relevant languages are not in the default selection you can
+If this does not work or the relevant languages are not in the default selection you can
 install languages by copying the dictionary files (.dic + .aff) to one of these locations:
 \code{hunspell::dicpath()}.
 }
