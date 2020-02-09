@@ -32,6 +32,7 @@ find_bad_spelling <- function(x) {
   error_collection$messages <- sapply(
     hunspell_output,
     function(y) {
+      # get hunspell suggestion
       a <- stringi::stri_join(sep = " ",
         hunspell::hunspell_suggest(
           y,
@@ -39,6 +40,9 @@ find_bad_spelling <- function(x) {
         )[[1]],
         collapse = ", "
       )
+      # if hunspell does not suggest anything
+      if (length(a) < 1) { a <- "?" }
+      # parse message
       res <- stringi::stri_join(
         stringr::str_pad(
           y, 20, side = "right",
