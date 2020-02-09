@@ -1,10 +1,18 @@
 #' @rdname wellspell
 #' @export
-spellcheck <- function() { return(try(check(find_bad_spelling))) }
+spellcheck <- function() {
+  # check if hunspell is available
+  check_if_packages_are_available("hunspell")
+  return(try(check(find_bad_spelling)))
+}
 
 #' @rdname wellspell
 #' @export
-gramcheck <- function() { return(try(check(find_bad_grammar))) }
+gramcheck <- function() {
+  # check if LanguageToolR is available
+  check_if_packages_are_available("LanguageToolR")
+  return(try(check(find_bad_grammar)))
+}
 
 #### algorithm functions ####
 
@@ -13,9 +21,6 @@ find_bad_spelling <- function(x, id = F) {
   if (id) {
     return("Spellcheck")
   }
-
-  # check if hunspell is available
-  check_if_packages_are_available("hunspell")
 
   # get all words of current row
   all_words <- unlist(stringr::str_split(x, " "))
@@ -68,9 +73,6 @@ find_bad_grammar <- function(x, id = F) {
   if (id) {
     return("Grammar check")
   }
-
-  # check if LanguageToolR is available
-  check_if_packages_are_available("LanguageToolR")
 
   # run grammar check
   languagetool_output <- LanguageToolR::languagetool(
