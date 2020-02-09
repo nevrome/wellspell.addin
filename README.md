@@ -1,6 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Travis-CI Build
+Status](https://travis-ci.org/nevrome/wellspell.addin.svg?branch=master)](https://travis-ci.org/nevrome/wellspell.addin)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/nevrome/wellspell.addin/master.svg)](https://codecov.io/github/nevrome/wellspell.addin?branch=master)
+
 # wellspell.addin
 
 ![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/mastake.gif)
