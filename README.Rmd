@@ -16,22 +16,16 @@ knitr::opts_chunk$set(
 
 # wellspell.addin
 
-![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/trump2.gif)
+![](https://github.com/nevrome/wellspell.addin/raw/master/inst/gif/mastake.gif)
 
-### Quickstart
-
-1. Install the package `devtools::install_github("nevrome/wellspell.addin")`
-
-2. Select text in an open document in RStudio
-
-3. Run the quick spellcheck or quick grammar check addin
-
-### Manual
 
 ```{r, echo=FALSE, results='asis'}
 zz <- textConnection("rd", "w")
 tools::Rd2txt("man/wellspell.Rd", zz)
 close(zz)
+
+rd <- gsub("            •", "  -", rd)
+rd <- gsub("    ", "", rd)
 
 purrr::walk(
   rd[4:(grep("_\bU_\bs_\ba_\bg_\be:", rd) - 1)],

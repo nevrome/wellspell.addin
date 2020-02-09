@@ -29,7 +29,7 @@ set_config(selected_panel = NULL)
 \item{selected_panel}{startup panel name}
 }
 \description{
-wellspell is an RStudio Addin to quickly highlight 
+wellspell is an RStudio Addin to quickly highlight
 spelling or grammar errors in text documents. It employs the
 \href{http://hunspell.github.io}{hunspell spell checking engine}
 via the \href{https://github.com/ropensci/hunspell}{hunspell package}
@@ -37,7 +37,26 @@ and the \href{https://www.languagetool.org}{LanguageTool} grammar checking engin
 via the \href{https://github.com/nevrome/LanguageToolR}{LanguageToolR package}
 to do so. Checking works for many languages.
 
-To use it, you can select an arbitrary amount of text in a text document
+\strong{Installation}
+
+Install the wellspell.addin R package from Github: \code{devtools::install_github("nevrome/wellspell.addin")}.
+To enable its features you need additional packages:
+\itemize{
+\item Spellcheck
+\itemize{
+\item Install the hunspell R package that contains a standalone version of hunspell: \code{install.packages("hunspell")}
+}
+\item Grammar check
+\itemize{
+\item Install the LanguageToolR R package \code{devtools::install_github("nevrome/LanguageToolR")}. It does not contain LanguageTool
+\item Install LanguageTool \href{https://github.com/languagetool-org/languagetool}{manually} or with the function \code{LanguageToolR::lato_quick_setup()}
+\item Restart RStudio
+}
+}
+
+\strong{Quickstart guide}
+
+To use wellspell.addin, you can select an arbitrary amount of text in a text document
 in RStudio (e.g. a markdown, latex or html document) and run \code{spellcheck()}
 or \code{gramcheck()}.
 As the functions are registered as RStudio Addins, it is possible to run them from
@@ -54,7 +73,7 @@ are for dealing with the environment variables and usually don't have to be call
 directly.
 
 \strong{How to install hunspell dictionaries for other languages?}
-  
+
 RStudio's default installation includes English dictionaries for the US, UK, Canada,
 and Australia. In addition, dictionaries for many other languages can be installed.
 To add these dictionaries, go to the \emph{Spelling} pane of the \emph{Options} dialog, and
