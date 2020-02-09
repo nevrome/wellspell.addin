@@ -11,7 +11,7 @@ checking engine via the hunspell package and the LanguageTool
 grammar checking engine via the LanguageToolR package to do so.  
 Checking works for many languages.
 
-*Installation*
+**Installation**
 
 Install the wellspell.addin R package from Github:  
 ‘devtools::install\_github(“nevrome/wellspell.addin”)’. To enable  
@@ -33,7 +33,7 @@ its features you need additional packages:
 
   - Restart RStudio
 
-*Quickstart guide*
+**Quickstart guide**
 
 To use wellspell.addin, you can select an arbitrary amount of text  
 in a text document in RStudio (e.g. a markdown, latex or html  
@@ -54,7 +54,7 @@ The additional functions ‘get\_config()’, ‘is\_config()’ and
 ‘rm\_config’ are for dealing with the environment variables and  
 usually don’t have to be called directly.
 
-*How to install hunspell dictionaries for other languages?*
+**How to install hunspell dictionaries for other languages?**
 
 RStudio’s default installation includes English dictionaries for  
 the US, UK, Canada, and Australia. In addition, dictionaries for  
