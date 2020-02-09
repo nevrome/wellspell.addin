@@ -25,6 +25,8 @@ tools::Rd2txt("man/wellspell.Rd", zz)
 close(zz)
 
 rd <- gsub("\\*", "**", rd)
+rd <- gsub("‘", "`", rd)
+rd <- gsub("’", "`", rd)
 rd <- gsub("            •", "  -", rd)
 rd <- gsub("    ", "", rd)
 
