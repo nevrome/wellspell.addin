@@ -135,10 +135,10 @@ two_letters <- function(str) {
 }
 
 
-
+#' @param selected_panel startup panel name
 #' @rdname wellspell
 #' @export
-set_config <- function() {
+set_config <- function(selected_panel = NULL) {
 
   show_console() # make visible what's happening in console.
 
@@ -227,7 +227,8 @@ set_config <- function() {
     miniUI::gadgetTitleBar("wellspell.addin"),
     miniUI::miniTabstripPanel(
       hunspell_panel,
-      LanguageTool_panel
+      LanguageTool_panel,
+      selected = selected_panel
     )
   )
 

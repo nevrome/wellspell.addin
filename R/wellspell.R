@@ -8,7 +8,11 @@ gramcheck <- function() { return(try(check(find_bad_grammar))) }
 
 #### algorithm functions ####
 
-find_bad_spelling <- function(x) {
+find_bad_spelling <- function(x, id = F) {
+
+  if (id) {
+    return("Spellcheck")
+  }
 
   # check if hunspell is available
   check_if_packages_are_available("hunspell")
@@ -59,7 +63,11 @@ find_bad_spelling <- function(x) {
 
 }
 
-find_bad_grammar <- function(x) {
+find_bad_grammar <- function(x, id = F) {
+
+  if (id) {
+    return("Grammar check")
+  }
 
   # check if LanguageToolR is available
   check_if_packages_are_available("LanguageToolR")
@@ -103,7 +111,7 @@ check <- function(find_bad_function) {
   # check if environment variables for configuration are set
   # if not: call set_config() addin
   if (!is_config()) {
-    set_config()
+    set_config(selected_panel = find_bad_function("", id = T))
 
     if (!is_config()) {
       message("Canceled.")

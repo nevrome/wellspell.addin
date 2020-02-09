@@ -23,7 +23,10 @@ is_config()
 
 rm_config()
 
-set_config()
+set_config(selected_panel = NULL)
+}
+\arguments{
+\item{selected_panel}{startup panel name}
 }
 \description{
 wellspell is an RStudio Addin to quickly highlight 
