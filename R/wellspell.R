@@ -203,6 +203,7 @@ check <- function(find_bad_function) {
 
     utils::setTxtProgressBar(pb, p1/length(row_texts))
   }
+  utils::setTxtProgressBar(pb, 1)
   close(pb)
 
   # message for user if no errors were found
