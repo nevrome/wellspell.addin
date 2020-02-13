@@ -23,7 +23,6 @@ Suggests:
 Remotes: 
   nevrome/LanguageToolR
 URL: 
-  https://github.com/nevrome/wellspell.addin,
-  https://nevrome.github.io/wellspell.addin
+  https://github.com/nevrome/wellspell.addin
 BugReports: 
   https://github.com/nevrome/wellspell.addin/issues
