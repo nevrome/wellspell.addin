@@ -1,22 +1,19 @@
 #' @rdname wellspell
 #' @export
-get_config <- function() {
+get_config_spellcheck <- function() {
   c(
     wellspell_language_hunspell = Sys.getenv("wellspell_language_hunspell"),
-    wellspell_format_hunspell = Sys.getenv("wellspell_format_hunspell"),
-    wellspell_language_languagetool = Sys.getenv("wellspell_language_languagetool"),
-    wellspell_grammar_ignore = Sys.getenv("wellspell_grammar_ignore")
+    wellspell_format_hunspell = Sys.getenv("wellspell_format_hunspell")
   )
 }
 
 #' @rdname wellspell
 #' @export
-is_config <- function() {
+is_config_spellcheck <- function() {
   any(sapply(
     c(
       "wellspell_language_hunspell",
-      "wellspell_format_hunspell",
-      "wellspell_language_languagetool"
+      "wellspell_format_hunspell"
     ),
     function(x) { nchar(Sys.getenv(x)) != 0 }
   ))
@@ -24,13 +21,11 @@ is_config <- function() {
 
 #' @rdname wellspell
 #' @export
-rm_config <- function() {
+rm_config_spellcheck <- function() {
   Sys.unsetenv(
     c(
       "wellspell_language_hunspell",
-      "wellspell_format_hunspell",
-      "wellspell_language_languagetool",
-      "wellspell_grammar_ignore"
+      "wellspell_format_hunspell"
     )
   )
 }
@@ -81,64 +76,9 @@ get_default_dict_hunspell <- function(hunspell_dicts = NULL) {
   }
 }
 
-
-
-#' Get the default languagetool dictionary.
-#'
-#' Get short name of a `languagetool` dictionary for grammar checking.
-#' Note that this name usually contains hyphens and not underscores
-#' (e.g., `"en-GB"`).
-#'
-#' @details Function tries to match the default RStudio spelling language first.
-#' If no exact match is found, tries to find the match of the first two letters.
-#' The next choice is English/Great Britain (`"en-GB"`) if it exists in the lists.
-#' Then first language in the list.
-#' If the list is empty, empty string `""` is returned.
-#'
-#' @param languagetool_dicts (character or `NULL`) A list of languagetool dictionaries
-#' as a character vector.
-#' If `NULL`, the function gets a list of installed dictionaries.
-#'
-#' @return String with default language or `""`.
-#' @keywords internal
-#' @noRd
-#' @md
-get_default_dict_languagetool <- function(languagetool_dicts = NULL) {
-
-  if (is.null(languagetool_dicts)) {
-    languagetool_dicts <- tryCatch(
-      LanguageToolR::lato_list_languages()$id,
-      error = function(e) return("")
-    )
-  }
-
-  # Try matching default language in RStudio first
-  rs_default <- gsub("_", "-", get_default_dict_hunspell())
-  if (rs_default %in% languagetool_dicts) {
-    rs_default
-
-  } else if (two_letters(rs_default) %in% two_letters(languagetool_dicts)) {
-    # Match first two letters, if exact match is not found
-    ind_first <- min(which(two_letters(languagetool_dicts) %in% two_letters(rs_default)))
-    languagetool_dicts[ind_first]
-
-  } else if ("en-GB" %in% languagetool_dicts) {
-    "en-GB"
-
-  } else {
-    languagetool_dicts[1]
-  }
-}
-
-two_letters <- function(str) {
-  substr(str, 1, 2)
-}
-
-
-#' @param selected_panel startup panel name
 #' @rdname wellspell
 #' @export
-set_config <- function(selected_panel = NULL) {
+set_config_spellcheck <- function() {
 
   show_console() # make visible what's happening in console.
 
@@ -182,53 +122,10 @@ set_config <- function(selected_panel = NULL) {
 
   }
 
-  #### LanguageTool ####
-  if (requireNamespace("LanguageToolR", quietly = TRUE) && LanguageToolR::lato_test_setup()) {
-
-    # get and store languagetool language list
-    # the list is stored in an environment variable to increase loading performance
-    wellspell_languagetool_list <- Sys.getenv("wellspell_languagetool_list")
-    if (wellspell_languagetool_list == "") {
-      languagetool_dicts <- LanguageToolR::lato_list_languages()$id
-      Sys.setenv(wellspell_languagetool_list = stringi::stri_join(languagetool_dicts, collapse = ","))
-    } else {
-      languagetool_dicts <- strsplit(wellspell_languagetool_list, ",")[[1]]
-    }
-
-    default_dict_languagetool <- get_default_dict_languagetool(languagetool_dicts = languagetool_dicts)
-
-    LanguageTool_panel <- miniUI::miniTabPanel(
-      "Grammar check", icon = shiny::icon("ruler"),
-      miniUI::miniContentPanel(
-        shiny::selectInput(
-          inputId = "language_selection_languagetool",
-          label = "Select grammar check language",
-          choices = languagetool_dicts,
-          selected = default_dict_languagetool,
-          width = "100%"
-        )
-      )
-    )
-
-  } else {
-
-    LanguageTool_panel <- miniUI::miniTabPanel(
-      "Grammar check", icon = shiny::icon("ruler"),
-      miniUI::miniContentPanel(
-        shiny::div(paste0(
-          "Grammar cannot be checked as package 'LanguageToolR' is either ",
-          "missing or configured incorrectly."))
-      )
-    )
-
-  }
-
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar("wellspell.addin"),
     miniUI::miniTabstripPanel(
-      hunspell_panel,
-      LanguageTool_panel,
-      selected = selected_panel
+      hunspell_panel
     )
   )
 
@@ -241,9 +138,7 @@ set_config <- function(selected_panel = NULL) {
     shiny::observeEvent(input$done, {
       Sys.setenv(
         wellspell_language_hunspell = ifelse(is.null(input$language_selection_hunspell), "", input$language_selection_hunspell),
-        wellspell_format_hunspell = ifelse(is.null(input$format_selection), "", input$format_selection),
-        wellspell_language_languagetool = ifelse(is.null(input$language_selection_languagetool), "", input$language_selection_languagetool),
-        wellspell_grammar_ignore = paste(input$grammar_ignore, collapse = "/")
+        wellspell_format_hunspell = ifelse(is.null(input$format_selection), "", input$format_selection)
       )
       # Change default RStudio spelling language
       # (to match the language of the tool called by <F7> button)
@@ -274,4 +169,3 @@ set_config <- function(selected_panel = NULL) {
     shiny::runGadget(ui, server, viewer = viewer, stopOnCancel = FALSE)
   })
 }
-

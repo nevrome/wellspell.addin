@@ -8,7 +8,12 @@ Description: Highlights grammar errors in selection
 Binding: gramcheck
 Interactive: true
 
-Name: Choose language of dictionary / Configure wellspell.addin
+Name: Choose language for spellcheck
 Description: Sets environment variables for wellspell.addin
-Binding: set_config
+Binding: set_config_spellcheck
+Interactive: true
+
+Name: Choose language for grammar check
+Description: Sets environment variables for wellspell.addin
+Binding: set_config_gramcheck
 Interactive: true

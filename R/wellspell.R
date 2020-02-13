@@ -111,13 +111,23 @@ check <- function(find_bad_function) {
   show_console() # make visible what's happening in console.
 
   # check if environment variables for configuration are set
-  # if not: call set_config() addin
-  if (!is_config()) {
-    set_config(selected_panel = find_bad_function("", id = T))
-
-    if (!is_config()) {
-      message("Canceled.")
-      return(invisible())
+  # if not: call set_config_...() addin
+  fun <- find_bad_function("", id = T)
+  if (fun == "Spellcheck") {
+    if (!is_config_spellcheck()) {
+      set_config_spellcheck()
+      if (!is_config_spellcheck()) {
+        message("Canceled.")
+        return(invisible())
+      }
+    }
+  } else if (fun == "Grammar check") {
+    if (!is_config_gramcheck()) {
+      set_config_gramcheck()
+      if (!is_config_gramcheck()) {
+        message("Canceled.")
+        return(invisible())
+      }
     }
   }
 
