@@ -165,6 +165,10 @@ check <- function(find_bad_function) {
 
     current_row_text <- row_texts[[p1]]
 
+    if (current_row_text == "") {
+      next
+    }
+
     error_collection <- find_bad_function(current_row_text)
 
     potentially_wrong_words <- error_collection$wrong
